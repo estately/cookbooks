@@ -1,0 +1,48 @@
+= DESCRIPTION:
+
+Install and configure postgresql
+
+= DATABAGS:
+
+== networks
+
+The networks databag is used by the postgresql::server recipe to
+restrict access to the defined networks.
+
+{
+  "id" : "office-external",
+
+  "cidr"    : "216.243.1.48/28",
+  "range"   : "216.243.1.49-62",
+  "netmask" : "255.255.255.240",
+
+  "network"   : "216.243.1.48",
+  "broadcast" : "216.243.1.63",
+  "gateway"   : "216.243.1.49",
+
+  "dns": [
+    "208.76.152.1",
+    "208.76.152.9"
+  ]
+}
+
+= USAGE:
+
+  include_recipe "postgresql::server"
+  include_recipe "postgresql::client"
+
+= LICENSE
+
+Copyright 2010, Estately, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

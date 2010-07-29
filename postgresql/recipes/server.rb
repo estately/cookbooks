@@ -1,0 +1,69 @@
+#
+# Cookbook Name:: postgresql
+# Recipe:: server
+#
+# Copyright 2010, Estately, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+include_recipe "postgresql::client"
+
+require 'pathname'
+CONFIG_DIR = "/etc/postgresql/8.4/main/"
+
+package "postgresql"
+package "postgresql-contrib"
+package "postgis"
+
+directory CONFIG_DIR do
+  owner "postgres"
+  group "postgres"
+  mode  0755
+
+  recursive true
+
+  not_if "test -d #{CONFIG_DIR}"
+end
+
+# remove some default files we don't use
+file( CONFIG_DIR + "environment"   ) { action :delete; backup false }
+file( CONFIG_DIR + "pg_ident.conf" ) { action :delete; backup false }
+file( CONFIG_DIR + "pg_ctl.conf"   ) { action :delete; backup false }
+
+###
+# start.conf
+#
+file CONFIG_DIR + "start.conf" do
+  owner "postgres"
+  group "postgres"
+  mode  0644
+
+  backup false
+
+  # the file should contain just the word "auto"
+  content "auto\n"
+end
+
+###
+# pg_hba.conf
+#
+template CONFIG_DIR + "pg_hba.conf" do
+  owner "postgres"
+  group "postgres"
+  mode  0640
+
+  variables(
+    :networks => search(:networks)
+  )
+end

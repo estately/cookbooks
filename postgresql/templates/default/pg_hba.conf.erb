@@ -1,0 +1,8 @@
+########################################################################
+# TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
+########################################################################
+local   all         postgres                          ident
+
+<% @networks.each do |network| %>
+host    all         all         <%= network[:cidr] %>   md5 # <%= network[:id] %>
+<% end %>
