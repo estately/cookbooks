@@ -20,6 +20,15 @@
 # libshadow is required to set passwords
 package "libshadow-ruby1.8"
 
+# remove the bootstrap user
+user("bootstrap") do
+  action :remove
+
+  # don't try to run if bootstrap is still logged in
+  not_if "who | grep bootstrap"
+end
+
+# create users from the users databag
 search( "users" ).sort_by {|u| u[:uid] }.each do |user|
 
   user user[:id] do
