@@ -23,8 +23,6 @@ require 'pathname'
 CONFIG_DIR = "/etc/postgresql/8.4/main/"
 
 package "postgresql"
-package "postgresql-contrib"
-package "postgis"
 
 directory CONFIG_DIR do
   owner "postgres"

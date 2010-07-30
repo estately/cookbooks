@@ -51,6 +51,7 @@ restrict access to the defined networks.
 = USAGE:
 
   include_recipe "postgresql::server"
+  include_recipe "postgresql::postgis"
   include_recipe "postgresql::client"
 
 = LICENSE
