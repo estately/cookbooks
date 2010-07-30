@@ -11,8 +11,16 @@ Create and manage users and groups
     "name"     : "Real Name",
     "uid"      : 10001,
     "shell"    : "/bin/bash",
-    "password" : "$1$OWxipM7o$9aC2eh/NX0umkmX7Nf2mr1"
+    "password" : "$1$OWxipM7o$9aC2eh/NX0umkmX7Nf2mr1",
+    "ssh_keys" : [
+      "ssh public key goes here",
+      "and this is another key if you like"
+    ]
 }
+
+The user's SSH public keys can be included in the ssh_keys array. Each
+should be a string containing the key data. The contents of this array
+will be written to the user's ~/.ssh/authorized_keys
 
 The "shell" and "password" fields are optional. Shell defaults to
 /bin/bash, and password defaults to "foo".

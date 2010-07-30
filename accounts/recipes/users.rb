@@ -30,17 +30,32 @@ end
 
 # create users from the users databag
 search( "users" ).sort_by {|u| u[:uid] }.each do |user|
+  homedir = user[ :home ] || "/home/#{user[:id]}"
 
   user user[:id] do
     comment  user[ :name     ]
     uid      user[ :uid      ]
     shell    user[ :shell    ] || "/bin/bash"
     password user[ :password ] || "$1$oBTQd/WJ$UBd0XfleEOk3.ZGZF9Ue30"
-    home     user[ :home     ] || "/home/#{user[:id]}"
+    home     homedir
 
     supports :manage_home => true
 
     action [ :create, :manage ]
+  end
+
+  directory homedir + "/.ssh" do
+    owner user[:id]
+    group user[:id]
+    mode  0700
+  end
+
+  template homedir + "/.ssh/authorized_keys" do
+    owner user[:id]
+    group user[:id]
+    mode  0644
+
+    variables( :keys => user[:ssh_keys] )
   end
 
 end
