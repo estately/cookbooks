@@ -1,0 +1,10 @@
+default.postgresql.max_connections              100
+default.postgresql.shared_buffers               "24MB"
+default.postgresql.work_mem                     "1MB"
+default.postgresql.maintenance_work_mem         "16MB"
+default.postgresql.max_stack_depth              "2MB"
+default.postgresql.wal_buffers                  "64kB"
+default.postgresql.checkpoint_segments          3
+default.postgresql.checkpoint_completion_target 0.5
+default.postgresql.effective_cache_size         "128MB"
+default.postgresql.default_statistics_target    100

@@ -67,3 +67,12 @@ template CONFIG_DIR + "pg_hba.conf" do
     :networks => search(:networks)
   )
 end
+
+###
+# postgresql.conf
+#
+template CONFIG_DIR + "postgresql.conf" do
+  owner "postgres"
+  group "postgres"
+  mode  0644
+end
