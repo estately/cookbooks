@@ -48,6 +48,12 @@ restrict access to the defined networks.
   ]
 }
 
+== users
+
+The users databag is used by the postgresql::server recipe to map system
+users to database users. See the accounts README for more details on
+this databag.
+
 = USAGE:
 
   include_recipe "postgresql::server"

@@ -36,7 +36,6 @@ end
 
 # remove some default files we don't use
 file( CONFIG_DIR + "environment"   ) { action :delete; backup false }
-file( CONFIG_DIR + "pg_ident.conf" ) { action :delete; backup false }
 file( CONFIG_DIR + "pg_ctl.conf"   ) { action :delete; backup false }
 
 ###
@@ -63,6 +62,19 @@ template CONFIG_DIR + "pg_hba.conf" do
 
   variables(
     :networks => search(:networks)
+  )
+end
+
+###
+# pg_ident.conf.erb
+#
+template CONFIG_DIR + "pg_ident.conf" do
+  owner "postgres"
+  group "postgres"
+  mode  0640
+
+  variables(
+    :users => search(:users).map {|u| u[:id] }
   )
 end
 
