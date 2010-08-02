@@ -17,13 +17,25 @@
 # limitations under the License.
 #
 
+###
+# Let's install some packages, shall we?
+#
 include_recipe "postgresql::client"
-
-require 'pathname'
-CONFIG_DIR = "/etc/postgresql/8.4/main/"
-
 package "postgresql"
 
+###
+# Configure the postgresql service
+#
+service "postgresql" do
+  service_name "postgresql-8.4"
+  supports :restart => true, :status => true, :reload => true
+  action :nothing
+end
+
+###
+# and set up the config directory
+#
+CONFIG_DIR = "/etc/postgresql/8.4/main/"
 directory CONFIG_DIR do
   owner "postgres"
   group "postgres"
@@ -34,7 +46,9 @@ directory CONFIG_DIR do
   not_if "test -d #{CONFIG_DIR}"
 end
 
+###
 # remove some default files we don't use
+#
 file( CONFIG_DIR + "environment"   ) { action :delete; backup false }
 file( CONFIG_DIR + "pg_ctl.conf"   ) { action :delete; backup false }
 
@@ -60,18 +74,22 @@ template CONFIG_DIR + "pg_hba.conf" do
   group "postgres"
   mode  0640
 
+  notifies :reload, resources(:service => "postgresql")
+
   variables(
     :networks => search(:networks)
   )
 end
 
 ###
-# pg_ident.conf.erb
+# pg_ident.conf
 #
 template CONFIG_DIR + "pg_ident.conf" do
   owner "postgres"
   group "postgres"
   mode  0640
+
+  notifies :reload, resources(:service => "postgresql")
 
   variables(
     :users => search(:users).map {|u| u[:id] }
@@ -85,4 +103,6 @@ template CONFIG_DIR + "postgresql.conf" do
   owner "postgres"
   group "postgres"
   mode  0644
+
+  notifies :restart, resources(:service => "postgresql")
 end
