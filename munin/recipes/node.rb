@@ -71,3 +71,17 @@ plugins_to_enable.each do |plugin|
   link, plugin_name = plugin.split(':')
   munin_plugin( link ) { plugin plugin_name if plugin_name }
 end
+
+########################################################################
+### Magical Plugin Detection
+########################################################################
+
+existing_munin_recipes = node.
+  cookbook_collection['munin'].
+  fully_qualified_recipe_names
+
+node.run_list.expand.recipes.each do |recipe|
+  recipe_name = "munin::#{recipe.gsub /::/, '_'}"
+
+  include_recipe recipe_name if existing_munin_recipes.include?( recipe_name )
+end

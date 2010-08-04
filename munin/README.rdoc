@@ -21,7 +21,14 @@ You can also set up wildcard plugins. The following example installs the
 
   include_recipe "munin::node"
 
-By default, this recipe will enable the following plugins:
+When run, the munin::node recipe looks at the node's runlist and will
+automatically run any recipes that match items in the runlist. For
+instance, if munin::node is run on a node that has postgresql::server
+in its runlist, the munin::postgresql_server recipe will be run as
+well. Note that the :: in the original recipe name is translated to an
+underscore.
+
+In addition, by default, this recipe will enable the following plugins:
 
  * acpi
  * cpu
