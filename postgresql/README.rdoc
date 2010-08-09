@@ -13,16 +13,24 @@ You should install postgresql using this recipe, run pgtune, and update
 any necessary attributes. The default values came directly from the
 Ubuntu 10.04 PostgreSQL 8.4 server default config.
 
+ * postgresql.autovacuum_max_workers
+ * postgresql.block_size
  * postgresql.checkpoint_completion_target
  * postgresql.checkpoint_segments
  * postgresql.default_statistics_target
  * postgresql.effective_cache_size
  * postgresql.maintenance_work_mem
  * postgresql.max_connections
+ * postgresql.max_locks_per_transaction
+ * postgresql.max_prepared_transactions
  * postgresql.max_stack_depth
  * postgresql.shared_buffers
+ * postgresql.wal_block_size
  * postgresql.wal_buffers
  * postgresql.work_mem
+
+We also set the sysctl shmmax setting. You can set it yourself in
+sysctl.shmmax, or let the cookbook calculate it for you.
 
 = DATABAGS:
 

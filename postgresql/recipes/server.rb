@@ -106,3 +106,17 @@ template CONFIG_DIR + "postgresql.conf" do
 
   notifies :restart, resources(:service => "postgresql")
 end
+
+###
+# /etc/sysctl.d/60-postgresql-tuning.conf
+#
+template "/etc/sysctl.d/60-postgresql-tuning.conf" do
+  owner "root"
+  group "root"
+  mode  0644
+
+  variables(
+    :shmmax => node.sysctl.shmmax,
+    :shmall => node.sysctl.shmmax / 4096
+  )
+end
