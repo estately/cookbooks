@@ -18,6 +18,7 @@
 #
 
 package "figlet"
+package "cpu-checker"
 
 ###
 # Clean up the default /etc/update-motd.d directory
