@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "\nChef"
+echo "------------------------------------------------------------------------"
+echo "Node name: <%= node.name %>"
+echo "Last run:  <%= Time.now.strftime "%Y-%m-%d %H:%M:%S"  %>"
+
+<% unless @roles.empty? %>
+echo "Roles:     <%= @roles.join ", " %>"
+<% end %>
+
+<% unless @recipes.empty? %>
+echo "Recipes:   <%= @recipes.join ", " %>"
+<% end %>
+

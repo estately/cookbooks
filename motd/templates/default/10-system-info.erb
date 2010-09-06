@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "\nSystem"
+echo "------------------------------------------------------------------------"
+echo "Hostname:   <%= node.fqdn %>"
+echo "OS Release: <%= node.lsb.description %>"
+
+echo "\nKernel"
+echo "------------------------------------------------------------------------"
+echo "Release: <%= node.kernel.release %>"
+echo "Version: <%= node.kernel.version %>"

@@ -20,30 +20,28 @@
 package "figlet"
 
 ###
-# Remove the silly "welcome to ubuntu" stuff and replace with the
-# hostname
+# Clean up the default /etc/update-motd.d directory
 #
 
 file( "/etc/update-motd.d/10-help-text" ) { action :delete }
-cookbook_file "/etc/update-motd.d/00-header" do
-  owner "root"
-  group "root"
-  mode  0755
+execute "mv /etc/update-motd.d/20-cpu-checker /etc/update-motd.d/97-cpu-checker" do
+  only_if { File.exists? "/etc/update-motd.d/20-cpu-checker" }
 end
 
 ###
-# Describe the server
+# Add in our info scripts
 #
 
-template "/etc/update-motd.d/10-chef-info" do
-  owner "root"
-  group "root"
+cookbook_file( "/etc/update-motd.d/00-header" ) { mode 0755 }
+template( "/etc/update-motd.d/10-system-info" ) { mode 0755 }
+
+template "/etc/update-motd.d/15-chef-info" do
   mode  0755
 
   roles, recipes = node.run_list.partition {|rli| rli.role? }
 
   variables(
-    :roles   => roles,
+    :roles   => roles.map {|r| r.name },
     :recipes => recipes
   )
 
