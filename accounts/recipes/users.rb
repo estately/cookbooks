@@ -28,6 +28,14 @@ user("bootstrap") do
   not_if "who | grep bootstrap"
 end
 
+directory "/home/bootstrap" do
+  action    :delete
+  recursive true
+
+  # don't try to run if bootstrap is still logged in
+  not_if "who | grep bootstrap"
+end
+
 # create users from the users databag
 search( "users" ).sort_by {|u| u[:uid] }.each do |user|
   homedir = user[ :homedir ] || "/home/#{user[:id]}"
