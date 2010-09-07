@@ -30,8 +30,18 @@ end
 
 # create users from the users databag
 search( "users" ).sort_by {|u| u[:uid] }.each do |user|
-  homedir = user[ :home ] || "/home/#{user[:id]}"
+  homedir = user[ :homedir ] || "/home/#{user[:id]}"
 
+  # ensure that the directory containing the homedir exists
+  directory File.dirname(homedir) do
+    owner "root"
+    group "root"
+    mode  0755
+
+    recursive true
+  end
+
+  # create the user
   user user[:id] do
     comment  user[ :name     ]
     uid      user[ :uid      ]
