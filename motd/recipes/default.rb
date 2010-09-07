@@ -37,7 +37,8 @@ cookbook_file( "/etc/update-motd.d/00-header" ) { mode 0755 }
 template( "/etc/update-motd.d/10-system-info" ) { mode 0755 }
 
 template "/etc/update-motd.d/15-chef-info" do
-  mode  0755
+  mode   0755
+  backup false
 
   roles, recipes = node.run_list.partition {|rli| rli.role? }
 
@@ -45,5 +46,4 @@ template "/etc/update-motd.d/15-chef-info" do
     :roles   => roles.map {|r| r.name },
     :recipes => recipes
   )
-
 end
