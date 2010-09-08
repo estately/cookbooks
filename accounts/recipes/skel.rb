@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: accounts
-# Recipe:: default
+# Recipe:: skel
 #
 # Copyright 2010, Estately, Inc.
 #
@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe "accounts::skel"
-include_recipe "accounts::users"
-include_recipe "accounts::groups"
+# hide the annoying first-time ubuntu disclaimer
+directory "/etc/skel/.cache"
+file "/etc/skel/.cache/motd.legal-displayed"
+
+# replace the bashrc with a slightly tweaked version
+cookbook_file("/etc/skel/.bashrc") { source 'bashrc' ; mode 0644 }

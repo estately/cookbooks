@@ -51,6 +51,7 @@ All fields are required.
 
 ... or, individually:
 
+  include_recipe "accounts::skel"
   include_recipe "accounts::groups"
   include_recipe "accounts::users"
 
