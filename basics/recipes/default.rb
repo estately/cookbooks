@@ -17,20 +17,14 @@
 # limitations under the License.
 #
 
-package( "ack-grep" ) { action :upgrade }
-package( "curl"     ) { action :upgrade }
-package( "dstat"    ) { action :upgrade }
-package( "git-core" ) { action :upgrade }
-package( "htop"     ) { action :upgrade }
-package( "man-db"   ) { action :upgrade }
-package( "perl-doc" ) { action :upgrade }
-package( "screen"   ) { action :upgrade }
-package( "ssh"      ) { action :upgrade }
-package( "strace"   ) { action :upgrade }
-package( "sysstat"  ) { action :upgrade }
-package( "tmux"     ) { action :upgrade }
-package( "vim"      ) { action :upgrade }
-package( "zsh"      ) { action :upgrade }
+packages = %w[
+  ack-grep curl debconf-utils dstat git-core htop man-db perl-doc screen
+  ssh strace sysstat tmux vim zsh
+]
+
+packages.each do |p|
+  package(p) { action :upgrade }
+end
 
 # fix ubuntu's broken naming of ack
 link "/usr/bin/ack" do

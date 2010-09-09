@@ -5,6 +5,7 @@ running:
 
 * ack-grep
 * curl
+* debconf-utils
 * dstat
 * git-core
 * htop
