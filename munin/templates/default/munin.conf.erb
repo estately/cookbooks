@@ -1,0 +1,18 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
+dbdir   /var/lib/munin
+htmldir /var/cache/munin/www
+logdir  /var/log/munin
+rundir  /var/run/munin
+tmpldir /etc/munin/templates
+
+# load config files
+includedir /etc/munin/munin-conf.d
+
+<% @hosts.each do |host| %>
+[<%= host %>]
+    address <%= host %>
+
+<% end %>
