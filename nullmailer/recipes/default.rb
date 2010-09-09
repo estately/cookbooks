@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+# remove postfix, we don't want both
+package("postfix") { action :purge }
 package "nullmailer"
 
 file "/etc/mailname" do
