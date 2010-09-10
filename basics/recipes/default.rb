@@ -26,6 +26,8 @@ packages.each do |p|
   package(p) { action :upgrade }
 end
 
+gem_package "rake"
+
 # fix ubuntu's broken naming of ack
 link "/usr/bin/ack" do
   to "/usr/bin/ack-grep"
