@@ -8,3 +8,10 @@ root		ALL=(ALL) ALL
 
 # estately users and groups
 %sysadmins	ALL=(ALL) ALL
+
+<% if node.sudo.user_commands %>
+# specific users/commands
+<% node.sudo.user_commands.each do |user, cmd| %>
+<%= user %>		ALL=(root) <%= cmd %>
+<% end %>
+<% end %>

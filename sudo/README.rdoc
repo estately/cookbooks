@@ -6,6 +6,10 @@ Installs sudo and writes out a simple sudoers file.
 
 The group "sysadmins" should exist.
 
+= ATTRIBUTES:
+
+sudo.user_commands:: a hash of usernames -> commands they are allowed to run
+
 = USAGE:
 
   include_recipe "sudo"
