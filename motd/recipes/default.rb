@@ -43,7 +43,7 @@ template "/etc/update-motd.d/15-chef-info" do
   roles, recipes = node.run_list.partition {|rli| rli.role? }
 
   variables(
-    :roles   => roles.map {|r| r.name },
-    :recipes => recipes
+    :roles   => roles.map   {|r| r.name },
+    :recipes => recipes.map {|r| r.name }
   )
 end
