@@ -42,13 +42,13 @@ end
 
 # default plugins that we want to disable
 plugins_to_disable = %w(
-   fw_conntrack fw_forwarded_local fw_packets http_loadtime
+  cpuspeed fw_conntrack fw_forwarded_local fw_packets http_loadtime
 )
 
 # default plugins that we want to remain enabled... note that
 # wildcard plugins are specified as link_name:plugin_name
 plugins_to_enable = %w(
-  acpi cpu cpuspeed df df_inode diskstats entropy forks if_eth0:if_
+  acpi cpu df df_inode diskstats entropy forks if_eth0:if_
   if_err_eth0:if_err_ interrupts iostat iostat_ios irqstats load memory
   open_files open_inodes proc_pri processes swap threads uptime users
   vmstat
