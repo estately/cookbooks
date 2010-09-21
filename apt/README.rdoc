@@ -1,14 +1,16 @@
 = DESCRIPTION:
 
-Runs apt-get update.
+Runs apt-get update, and optionally configured automated updates
 
-= REQUIREMENTS:
+= ATTRIBUTES:
 
-A system with apt.
+apt.notification_email:: the email address to send package upgrade
+notifications to
 
 = USAGE:
 
   include_recipe "apt"
+  include_recipe "apt::unattended_upgrades"
 
 = LICENSE
 
@@ -25,4 +27,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
