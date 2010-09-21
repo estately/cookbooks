@@ -1,6 +1,10 @@
 = DESCRIPTION:
 
-Runs apt-get update, and optionally configured automated updates
+Three functions:
+
+  * runs apt-get update on every chef run
+  * configures automated security updates
+  * configures apticron for daily status emails
 
 = ATTRIBUTES:
 
@@ -11,6 +15,7 @@ notifications to
 
   include_recipe "apt"
   include_recipe "apt::unattended_upgrades"
+  include_recipe "apt::apticron"
 
 = LICENSE
 
