@@ -17,4 +17,8 @@
 # limitations under the License.
 #
 
-execute("apt-get-update") { command "apt-get update" }
+e = execute "apt-get update" do
+  action :nothing
+end
+
+e.run_action(:run)
