@@ -24,15 +24,18 @@ package "libboost-dev"
 package "libboost-filesystem-dev"
 package "swig"
 
+# share this proc across all the resources
+not_if_proc = Proc.new { File.exists? "/usr/local/lib/ruby/site_ruby/1.8/x86_64-linux/librets_native.so" }
+
 # copy up librets source and rubytracking patch
-cookbook_file "/tmp/librets-1.5.1.tar.gz"
-cookbook_file "/tmp/rubytracking.swg"
+cookbook_file("/tmp/librets-1.5.1.tar.gz") { not_if not_if_proc }
+cookbook_file("/tmp/rubytracking.swg")     { not_if not_if_proc }
 
 bash "install librets" do
   user "root"
   cwd "/tmp"
 
-  not_if { File.exists? "/usr/local/lib/ruby/site_ruby/1.8/x86_64-linux/librets_native.so" }
+  not_if not_if_proc
 
   code <<-EOF
     tar zxf librets-1.5.1.tar.gz
