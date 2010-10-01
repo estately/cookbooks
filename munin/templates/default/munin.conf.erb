@@ -1,0 +1,27 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
+dbdir   /var/lib/munin
+htmldir <%= node.munin.htmldir %>
+logdir  /var/log/munin
+rundir  /var/run/munin
+tmpldir /etc/munin/templates
+
+# load config files
+includedir /etc/munin/munin-conf.d
+
+<% @hosts.sort_by {|h| h[:fqdn] }.each do |host| %>
+<%
+    if host[:munin]
+      group = host[:munin][:group] || nil
+    else
+      group = host[:group] || nil
+    end
+
+    section = [ group, host[:fqdn] ].compact.join(';')
+%>
+[estately.com;<%= section %>]
+    address <%= host[:fqdn] %>
+
+<% end %>
