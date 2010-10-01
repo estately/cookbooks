@@ -17,8 +17,4 @@
 # limitations under the License.
 #
 
-munin_plugin "ntp_kernel_err"
-munin_plugin "ntp_kernel_pll_freq"
-munin_plugin "ntp_kernel_pll_off"
 munin_plugin "ntp_offset"
-munin_plugin "ntp_states"
