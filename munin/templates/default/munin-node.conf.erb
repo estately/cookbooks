@@ -25,6 +25,11 @@ ignore_file \.rpm(save|new)$
 ignore_file \.pod$
 
 allow ^127\.0\.0\.1$
+# allow 127.*, since ubuntu insists on resolving the local hostname
+# to 127.0.1.1
+cidr_allow 127.0.0.1/8
+
+# defined networks
 <% @networks.each do |network| %>
 cidr_allow <%= network[:cidr] %> # <%= network[:id] %>
 <% end %>
