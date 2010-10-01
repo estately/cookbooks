@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-default.munin.additional_monitored_hosts []
+default.munin.htmldir          "/var/www/munin"
+default.munin.group            ""
+default.munin.additional_hosts []

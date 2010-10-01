@@ -20,19 +20,30 @@
 include_recipe 'munin::node'
 package "munin"
 
-########################################################################
-### Clean up config files
-########################################################################
+# create htmldir
+directory node.munin.htmldir do
+  owner "munin"
+  group "munin"
+  mode  0755
+end
 
-file( "/etc/munin/apache.conf" ) { action :delete }
-
+# render the munin config
 template "/etc/munin/munin.conf" do
   owner "root"
   group "root"
   mode  0644
 
-  hosts = search( "node", "role:monitored" ).map {|h| h.fqdn }
-  hosts << node.munin.additional_monitored_hosts
+  hosts = search(:node, 'roles:monitored')
+  variables :hosts => hosts + node.munin.additional_hosts
+end
 
-  variables( :hosts => hosts.flatten.sort.uniq )
+########################################################################
+### Enable the webserver
+########################################################################
+
+include_recipe "apache2"
+include_recipe "apache2::mod_ssl"
+
+link "/etc/apache2/sites-enabled/munin.conf" do
+  to "/etc/munin/apache.conf"
 end
