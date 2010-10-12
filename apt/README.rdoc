@@ -1,10 +1,11 @@
 = DESCRIPTION:
 
-Three functions:
+Four functions:
 
   * runs apt-get update on every chef run
   * configures automated security updates
   * configures apticron for daily status emails
+  * enables the lucid backports repository
 
 = ATTRIBUTES:
 
@@ -16,6 +17,7 @@ notifications to
   include_recipe "apt"
   include_recipe "apt::unattended_upgrades"
   include_recipe "apt::apticron"
+  include_recipe "apt::backports"
 
 = LICENSE
 

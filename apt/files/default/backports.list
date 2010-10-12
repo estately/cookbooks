@@ -1,0 +1,7 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
+# enable the backports repository
+deb http://us.archive.ubuntu.com/ubuntu/ lucid-backports main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ lucid-backports main restricted universe multiverse
