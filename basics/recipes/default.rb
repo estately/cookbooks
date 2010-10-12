@@ -18,8 +18,8 @@
 #
 
 packages = %w[
-  ack-grep curl debconf-utils dstat git-core htop man-db perl-doc screen
-  ssh strace sysstat tmux vim zsh
+  ack-grep curl debconf-utils dstat git-core htop man-db perl-doc s3cmd
+  screen ssh strace sysstat tmux vim zsh
 ]
 
 packages.each do |p|
