@@ -24,7 +24,9 @@ package "cpu-checker"
 # Clean up the default /etc/update-motd.d directory
 #
 
-file( "/etc/update-motd.d/10-help-text" ) { action :delete }
+file( "/etc/update-motd.d/10-help-text"         ) { action :delete }
+link( "/etc/update-motd.d/50-landscape-sysinfo" ) { action :delete }
+
 execute "mv /etc/update-motd.d/20-cpu-checker /etc/update-motd.d/97-cpu-checker" do
   only_if { File.exists? "/etc/update-motd.d/20-cpu-checker" }
 end
