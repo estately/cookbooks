@@ -19,7 +19,11 @@ includedir /etc/munin/munin-conf.d
       group = host[:group] || nil
     end
 
-    section = [ group, host[:fqdn] ].compact.join(';')
+    if group.nil? or group.empty?
+      group = "other"
+    end
+
+    section = [ host[:app_environment], group, host[:fqdn] ].join(';')
 %>
 [estately.com;<%= section %>]
     address <%= host[:fqdn] %>
