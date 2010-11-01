@@ -20,14 +20,29 @@
 package("haproxy") { action :install }
 
 # Clean up installed crap
-directory "/etc/haproxy" do
+directory "/etc/haproxy/errors" do
   action    :delete
   recursive true
 end
 
+file "/etc/default/haproxy" do
+  owner "root"
+  group "root"
+  mode  0644
+  content "ENABLED=1\n"
+end
+
+# configure a service
+service "haproxy" do
+  supports [ :restart, :reload, :status ]
+  action :enable
+end
+
 # install a config
-template "/etc/haproxy.conf" do
+template "/etc/haproxy/haproxy.cfg" do
   owner "root"
   group "root"
   mode 0644
+
+  notifies :restart, resources( :service => "haproxy" )
 end
