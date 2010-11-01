@@ -18,5 +18,5 @@
 #
 
 default.munin.htmldir          "/var/www/munin"
-default.munin.group            ""
+default.munin.group            "other"
 default.munin.additional_hosts []
