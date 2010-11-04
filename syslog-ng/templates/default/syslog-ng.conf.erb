@@ -1,0 +1,67 @@
+@version: 3.0
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+#
+# Notes from the distribution syslog-ng.conf:
+#
+####
+# Syslog-ng configuration file, compatible with default Debian syslogd
+# installation. Originally written by anonymous (I can't find his name)
+# Revised, and rewrited by me (SZALAY Attila <sasa@debian.org>)
+####
+#
+
+########################################################################
+### Global Options
+########################################################################
+
+options {
+    long_hostnames( off );
+    flush_lines(0);
+    use_dns(no);
+    use_fqdn(no);
+    owner("root");
+    group("adm");
+    perm(0640);
+    stats_freq(0);
+    bad_hostname("^gconfd$");
+};
+
+########################################################################
+### Sources
+########################################################################
+
+# enable default sources from syslog-ng config
+source default {
+    internal();
+    unix-dgram("/dev/log");
+    file("/proc/kmsg" program_override("kernel"));
+};
+
+# enable tcp and udp logging
+source network {
+    tcp();
+    udp();
+};
+
+########################################################################
+### Destinations
+########################################################################
+
+destination files {
+    file(
+        "/var/log/remote/$YEAR/$MONTH/$DAY/$HOST/$PROGRAM.log",
+        create_dirs(yes)
+    );
+};
+
+log {
+    source( network );
+    destination( files );
+};
+
+#########################################################################
+### Include other configs
+#########################################################################
+include "/etc/syslog-ng/conf.d";
