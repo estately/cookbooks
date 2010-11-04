@@ -1,0 +1,59 @@
+= DESCRIPTION:
+
+Install and configure redis
+
+= REQUIREMENTS:
+
+Tested on Ubuntu 10.04
+
+= ATTRIBUTES:
+
+redis.timeout:: specify the connect timeout in seconds. Defaults to 300. 0 to disable.
+redis.loglevel:: specify the level at which redis logs. Defaults to notice.
+redis.databases:: specify the number of databases. Defaults to 16.
+redis.appendfsync:: specify when the append-only database is flushed. Options are 'always', 'everysec', and 'no'. Defaults to always.
+redis.snapshot_intervals:: an array of hashes of number of seconds => number of changes:
+
+    [
+        { 900 : 1     },
+        { 300 : 10    },
+        { 60  : 10000 }
+    ]
+
+This yields:
+
+    save 900 1
+    save 300 10
+    save 60 10000
+
+...based on the documentation from the sample config, included below:
+
+  save <seconds> <changes>
+
+  Will save the DB if both the given number of seconds and the given
+  number of write operations against the DB occurred.
+
+  In the example below the behaviour will be to save:
+  after 900 sec (15 min) if at least 1 key changed
+  after 300 sec (5 min) if at least 10 keys changed
+  after 60 sec if at least 10000 keys changed
+
+= USAGE:
+
+  include_recipe "redis"
+
+= LICENSE
+
+Copyright 2010, Estately, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

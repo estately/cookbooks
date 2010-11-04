@@ -1,0 +1,40 @@
+daemonize yes
+pidfile /var/run/redis.pid
+
+# bind    127.0.0.1
+port    6379
+timeout <%= node.redis.timeout %>
+
+loglevel <%= node.redis.loglevel %>
+logfile  /var/log/redis/redis-server.log
+
+databases <%= node.redis.databases %>
+
+### Snapshotting
+<% node.redis.snapshot_intervals.each do |interval| %>
+save <%= interval.to_a.flatten.join ' ' %>
+<% end %>
+
+rdbcompression yes
+dbfilename dump.rdb
+dir /var/lib/redis
+
+### Replication
+# slaveof <masterip> <masterport>
+# masterauth <master-password>
+
+### Security
+# requirepass foobared
+
+### Limits
+# maxclients 128
+# maxmemory <bytes>
+
+### Append Only Mode
+appendonly no
+appendfsync <%= node.redis.appendfsync %>
+
+### Advanced Config
+glueoutputbuf yes
+shareobjects no
+shareobjectspoolsize 1024
