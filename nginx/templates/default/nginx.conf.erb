@@ -1,0 +1,27 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
+user www-data;
+
+worker_processes <%= node.nginx.worker_processes %>;
+
+error_log /var/log/nginx/error.log;
+pid       /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+
+    access_log /var/log/nginx/access.log;
+
+    sendfile           on;
+    tcp_nodelay        on;
+    keepalive_timeout  65;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
