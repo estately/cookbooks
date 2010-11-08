@@ -1,12 +1,12 @@
 daemonize yes
 pidfile /var/run/redis.pid
 
-# bind    127.0.0.1
-port    6379
+# bind 127.0.0.1
+# port 6379
 timeout <%= node.redis.timeout %>
 
 loglevel <%= node.redis.loglevel %>
-logfile  /var/log/redis/redis-server.log
+logfile /var/log/redis/redis-server.log
 
 databases <%= node.redis.databases %>
 
