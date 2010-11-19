@@ -26,3 +26,5 @@ default.monit.mail.to     "ops@example.com"
 
 default.monit.web.enabled false
 default.monit.web.bind_to "localhost"
+default.monit.web.port    2812
+default.monit.web.allow   "localhost"

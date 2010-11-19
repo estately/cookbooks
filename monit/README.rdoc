@@ -20,6 +20,7 @@ monit.mail.to:: send mail to the given address. defaults to ops@example.com
 === Web UI Settings
 monit.web.enabled:: whether to enable the web ui. defaults to false
 monit.web.bind_to:: the address to bind to. defaults to localhost
+monit.web.port:: the port to bind to. defaults to 2812.
 monit.web.allow:: the ip/cidr/hostname of who can connect. defaults to localhost
 
 = USAGE:
