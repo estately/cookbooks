@@ -16,6 +16,7 @@ monit.start_delay:: delay initial check by n seconds. defaults to 240.
 monit.mail.server:: send mail through the given SMTP server. defaults to localhost
 monit.mail.from:: send mail from the given address. defaults to monit@FQDN
 monit.mail.to:: send mail to the given address. defaults to ops@example.com
+monit.mail.subject:: set the subject for emails. defaults to "monit alert -- $SERVICE $EVENT"
 
 === Web UI Settings
 monit.web.enabled:: whether to enable the web ui. defaults to false

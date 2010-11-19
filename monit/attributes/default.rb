@@ -20,9 +20,10 @@
 default.monit.interval    120
 default.monit.start_delay 240
 
-default.monit.mail.server "localhost"
-default.monit.mail.from   "monit@#{node.fqdn}"
-default.monit.mail.to     "ops@example.com"
+default.monit.mail.server  "localhost"
+default.monit.mail.from    "monit@#{node.fqdn}"
+default.monit.mail.to      "ops@example.com"
+default.monit.mail.subject "monit alert -- $SERVICE $EVENT"
 
 default.monit.web.enabled false
 default.monit.web.bind_to "localhost"
