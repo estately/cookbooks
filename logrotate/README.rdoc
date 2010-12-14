@@ -23,6 +23,8 @@ This is equivalent to:
 
     frequency :daily
     keep 3650 # ten years!
+
+    copytruncate false
   end
 
 Which, in logrotate terms, translates to:
@@ -38,30 +40,6 @@ Which, in logrotate terms, translates to:
 
     missingok
     notifempty
-  }
-
-Notes:
-
-* currently, `missingok` and `notifempty` are not tunable. You want
-  them.
-
-* the defaults assume that you have no need of a postrotate script...
-  if you want, you can use the postrotate directive. Note that this
-  will enable sharedscripts.
-
-  rotate_log "/var/log/nginx/*.log" do
-    postrotate "kill -USR1 `cat /var/run/nginx.pid`"
-  end
-
-... yields ...
-
-  /var/log/nginx/*.log {
-    # everything from above plus:
-
-    sharedscripts
-    postrotate
-      kill -USR1 `/var/run/nginx.pid`
-    endscript
   }
 
 You can also specify the name of the rotater config and filenames
@@ -87,6 +65,30 @@ Yielding:
 
   /var/log/nginx/*.log /var/www/site/shared/logs/nginx*.log {
     # ...
+  }
+
+Notes:
+
+* currently, `missingok` and `notifempty` are not tunable. You want
+  them.
+
+* the defaults assume that you have no need of a postrotate script...
+  if you want, you can use the postrotate directive. Note that this
+  will enable sharedscripts.
+
+  rotate_log "/var/log/nginx/*.log" do
+    postrotate "kill -USR1 `cat /var/run/nginx.pid`"
+  end
+
+... yields ...
+
+  /var/log/nginx/*.log {
+    # everything from above plus:
+
+    sharedscripts
+    postrotate
+      kill -USR1 `/var/run/nginx.pid`
+    endscript
   }
 
 = LICENSE
