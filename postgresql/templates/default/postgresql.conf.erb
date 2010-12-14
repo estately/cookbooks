@@ -318,7 +318,7 @@ default_statistics_target = <%= node.postgresql.default_statistics_target %>	# r
 					#   fatal
 					#   panic (effectively off)
 
-#log_min_duration_statement = -1	# -1 is disabled, 0 logs all statements
+log_min_duration_statement = 0	# -1 is disabled, 0 logs all statements
 					# and their durations, > 0 logs only
 					# statements running at least this number
 					# of milliseconds
@@ -333,9 +333,9 @@ default_statistics_target = <%= node.postgresql.default_statistics_target %>	# r
 #log_checkpoints = off
 #log_connections = off
 #log_disconnections = off
-#log_duration = off
+log_duration = on
 #log_hostname = off
-log_line_prefix = '%t '			# special values:
+log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d '			# special values:
 					#   %u = user name
 					#   %d = database name
 					#   %r = remote host and port
@@ -353,7 +353,7 @@ log_line_prefix = '%t '			# special values:
 					#        processes
 					#   %% = '%'
 #log_lock_waits = off			# log lock waits >= deadlock_timeout
-#log_statement = 'none'			# none, ddl, mod, all
+log_statement = 'all'			# none, ddl, mod, all
 #log_temp_files = -1			# log temporary files equal or larger
 					# than the specified size in kilobytes;
 					# -1 disables, 0 logs all temp files

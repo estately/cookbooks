@@ -22,6 +22,7 @@
 #
 include_recipe "postgresql::client"
 package "postgresql"
+package "pgfouine" # log file analysis
 
 ###
 # Configure the postgresql service
@@ -119,4 +120,19 @@ template "/etc/sysctl.d/60-postgresql-tuning.conf" do
     :shmmax => node.sysctl.shmmax,
     :shmall => node.sysctl.shmmax / 4096
   )
+end
+
+########################################################################
+### Log Rotation
+########################################################################
+
+include_recipe "logrotate"
+
+### remove existing config
+file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
+
+### create a new one!
+rotate_log "postgresql" do
+  files "/var/log/postgresql/postgresql-8.4-main.log"
+  copytruncate true
 end
