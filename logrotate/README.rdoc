@@ -1,0 +1,106 @@
+= DESCRIPTION:
+
+Installs logrotate and provides a definition for setting up log rotation
+
+= REQUIREMENTS:
+
+Tested on Ubuntu 10.04 LTS
+
+= USAGE:
+
+  include_recipe "logrotate"
+
+You can just name a log file and it'll do (what we consider to be) the
+right thing:
+
+  rotate_log "/path/to/logfile"
+
+This is equivalent to:
+
+  rotate_log "/path/to/logfile" do
+    compress  true
+    datestamp true
+
+    frequency :daily
+    keep 3650 # ten years!
+  end
+
+Which, in logrotate terms, translates to:
+
+  /path/to/logfile {
+    compress
+    delaycompress
+
+    dateext
+
+    daily
+    rotate 3650
+
+    missingok
+    notifempty
+  }
+
+Notes:
+
+* currently, `missingok` and `notifempty` are not tunable. You want
+  them.
+
+* the defaults assume that you have no need of a postrotate script...
+  if you want, you can use the postrotate directive. Note that this
+  will enable sharedscripts.
+
+  rotate_log "/var/log/nginx/*.log" do
+    postrotate "kill -USR1 `cat /var/run/nginx.pid`"
+  end
+
+... yields ...
+
+  /var/log/nginx/*.log {
+    # everything from above plus:
+
+    sharedscripts
+    postrotate
+      kill -USR1 `/var/run/nginx.pid`
+    endscript
+  }
+
+You can also specify the name of the rotater config and filenames
+separately:
+
+  rotate_log "nginx" do
+    files "/var/log/nginx/*.log"
+  end
+
+This yields:
+
+  /var/log/nginx/*.log {
+    # ... all the boilerplate from above
+  }
+
+Files can also be an array:
+
+  rotate_log "nginx" do
+    files "/var/log/nginx/*.log", "/var/www/site/shared/logs/nginx*.log"
+  end
+
+Yielding:
+
+  /var/log/nginx/*.log /var/www/site/shared/logs/nginx*.log {
+    # ...
+  }
+
+= LICENSE
+
+Copyright 2010, Estately, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
