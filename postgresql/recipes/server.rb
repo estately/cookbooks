@@ -22,7 +22,6 @@
 #
 include_recipe "postgresql::client"
 package "postgresql"
-package "pgfouine" # log file analysis
 
 ###
 # Configure the postgresql service
