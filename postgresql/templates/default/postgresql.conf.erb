@@ -395,11 +395,11 @@ log_statement = 'all'			# none, ddl, mod, all
 					# of milliseconds.
 autovacuum_max_workers = <%= node.postgresql.autovacuum_max_workers %>		# max number of autovacuum subprocesses
 #autovacuum_naptime = 1min		# time between autovacuum runs
-#autovacuum_vacuum_threshold = 50	# min number of row updates before
+autovacuum_vacuum_threshold = <%= node.postgresql.autovacuum_vacuum_threshold %>	# min number of row updates before
 					# vacuum
 #autovacuum_analyze_threshold = 50	# min number of row updates before 
 					# analyze
-#autovacuum_vacuum_scale_factor = 0.2	# fraction of table size before vacuum
+autovacuum_vacuum_scale_factor = <%= node.postgresql.autovacuum_vacuum_scale_factor %>	# fraction of table size before vacuum
 #autovacuum_analyze_scale_factor = 0.1	# fraction of table size before analyze
 #autovacuum_freeze_max_age = 200000000	# maximum XID age before forced vacuum
 					# (change requires restart)

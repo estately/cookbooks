@@ -30,6 +30,8 @@ default.postgresql.effective_cache_size         "128MB"
 default.postgresql.default_statistics_target    100
 default.postgresql.autovacuum_max_workers       3
 default.postgresql.max_locks_per_transaction    64
+default.postgresql.autovacuum_vacuum_scale_factor 0.2
+default.postgresql.autovacuum_vacuum_threshold  50
 
 # these two settings are determing at postgresql compile-time, so they
 # should only be set if your postgresql already has different values.
