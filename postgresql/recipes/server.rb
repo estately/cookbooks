@@ -104,7 +104,7 @@ template CONFIG_DIR + "postgresql.conf" do
   group "postgres"
   mode  0644
 
-  notifies :restart, resources(:service => "postgresql")
+  notifies :reload, resources(:service => "postgresql")
 end
 
 ###
