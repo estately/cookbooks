@@ -42,7 +42,7 @@ end
 
 # default plugins that we want to disable
 plugins_to_disable = %w(
-  cpuspeed fw_conntrack fw_forwarded_local fw_packets http_loadtime
+  apt cpuspeed fw_conntrack fw_forwarded_local fw_packets http_loadtime
 )
 
 # default plugins that we want to remain enabled... note that
@@ -55,7 +55,6 @@ plugins_to_enable = %w(
 )
 
 # additional plugins to enable
-plugins_to_enable << "apt"
 plugins_to_enable << "apt_all"
 plugins_to_enable << "tcp"
 
