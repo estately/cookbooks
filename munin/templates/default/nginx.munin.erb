@@ -1,0 +1,8 @@
+server {
+    root <%= node.munin.htmldir %> ;
+
+    <% @networks.each do |network| %>
+    allow <%= network %> ;
+    <% end %>
+    deny all;
+}

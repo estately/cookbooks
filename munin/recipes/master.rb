@@ -41,9 +41,14 @@ end
 ### Enable the webserver
 ########################################################################
 
-include_recipe "apache2"
-include_recipe "apache2::mod_ssl"
+include_recipe "nginx"
+nginx_site( "default" ) { action :disable }
 
-link "/etc/apache2/sites-enabled/munin.conf" do
-  to "/etc/munin/apache.conf"
+# do this search outside the nginx_site block, as the block doesn't
+# have the correct scope to perform the search
+networks = search(:networks).map {|n| n[:cidr] }
+
+nginx_site "munin" do
+  action :enable
+  variables :networks => networks
 end
