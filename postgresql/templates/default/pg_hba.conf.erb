@@ -8,6 +8,7 @@
 local   all         postgres                          ident
 local   all         all                               ident map=devs
 
+host    all         all         127.0.0.1/8           md5 # loopback
 <% @networks.each do |network| %>
 host    all         all         <%= network[:cidr] %>   md5 # <%= network[:id] %>
 <% end %>
