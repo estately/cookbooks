@@ -20,3 +20,6 @@
 default.munin.htmldir          "/var/www/munin"
 default.munin.group            "other"
 default.munin.additional_hosts []
+
+default.munin.notifications.enabled false
+default.munin.notifications.address "ops@example.com"
