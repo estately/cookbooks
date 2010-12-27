@@ -26,6 +26,9 @@ define :nginx_site, :action => :enable do
     group "root"
     mode  0644
 
+    # pass through any variables given in the recipe
+    variables params[:variables]
+
     notifies :restart, resources( :service => "nginx" )
 
     # we only want to try to render the template if we're enabling the
