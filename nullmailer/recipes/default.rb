@@ -41,8 +41,8 @@ file "/etc/nullmailer/remotes" do
   group "root"
   mode  0644
 
-  # to_s, lest we mutate the actual attribute value
-  remote = node.nullmailer.relayhost.to_s
+  # dup, lest we mutate the actual attribute value
+  remote = node.nullmailer.relayhost.dup
   remote << " smtp"
 
   if node.nullmailer.username
