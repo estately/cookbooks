@@ -8,6 +8,10 @@ nullmailer.mailname:: The sender domain. Defaults to node.domain
 
 nullmailer.relayhost:: The machine that actually sends mail. Defaults to mail.<node.domain>
 
+nullmailer.username:: The username to use when authenticating with the SMTP server. Defaults to nil.
+
+nullmailer.password:: The password to use when authenticating with the SMTP server. Defaults to nil.
+
 = USAGE:
 
   include_recipe "nullmailer"

@@ -21,12 +21,19 @@
 package("postfix") { action :purge }
 package "nullmailer"
 
+service "nullmailer" do
+  supports [ :start, :stop, :restart, :reload ]
+  action :enable
+end
+
 file "/etc/mailname" do
   owner "root"
   group "root"
   mode  0644
 
   content "#{node.nullmailer.mailname}\n"
+
+  notifies :restart, resources(:service => "nullmailer")
 end
 
 file "/etc/nullmailer/remotes" do
@@ -34,5 +41,19 @@ file "/etc/nullmailer/remotes" do
   group "root"
   mode  0644
 
-  content "#{node.nullmailer.relayhost}\n"
+  # to_s, lest we mutate the actual attribute value
+  remote = node.nullmailer.relayhost.to_s
+  remote << " smtp"
+
+  if node.nullmailer.username
+    remote << " --user=#{node.nullmailer.username}"
+  end
+
+  if node.nullmailer.password
+    remote << " --pass=#{node.nullmailer.password}"
+  end
+
+  content "#{remote}\n"
+
+  notifies :restart, resources(:service => "nullmailer")
 end

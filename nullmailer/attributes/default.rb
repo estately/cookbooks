@@ -19,3 +19,5 @@
 
 default.nullmailer.mailname  node.domain
 default.nullmailer.relayhost "mail.#{node.domain}"
+default.nullmailer.username  nil
+default.nullmailer.password  nil
