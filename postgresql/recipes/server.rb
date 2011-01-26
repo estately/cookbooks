@@ -22,6 +22,7 @@
 #
 include_recipe "postgresql::client"
 package "postgresql"
+package "ptop"
 
 ###
 # Configure the postgresql service
