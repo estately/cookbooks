@@ -18,9 +18,10 @@ http {
 
     access_log /var/log/nginx/access.log;
 
-    sendfile           on;
-    tcp_nodelay        on;
-    keepalive_timeout  65;
+    sendfile             on;
+    tcp_nodelay          on;
+    keepalive_timeout    65;
+    client_max_body_size 50M;
 
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
