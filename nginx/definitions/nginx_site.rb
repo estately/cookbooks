@@ -20,7 +20,11 @@
 define :nginx_site, :action => :enable do
 
   template "/etc/nginx/sites-available/#{params[:name]}" do
-    source "nginx.#{params[:name]}.erb"
+    if params[:source]
+      source params[:source]
+    else
+      source "nginx.#{params[:name]}.erb"
+    end
 
     owner "root"
     group "root"
