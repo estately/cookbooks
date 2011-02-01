@@ -1,0 +1,19 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
+# this sets the Host: header to the value passed in or, if it was
+# absent, to the name of the server servicing the request.
+proxy_set_header Host $host;
+
+# as recommended by rack's default configs
+proxy_set_header X-Real-IP $remote_addr;
+
+# this creates the X-Forwarded-For chain
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+# FIXME:ben: this may not be necessary; see if it works with 'default'
+proxy_redirect off;
+
+# don't use temporary files for buffering large requests
+proxy_max_temp_file_size 0;

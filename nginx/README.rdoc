@@ -23,6 +23,7 @@ nginx.worker_processes:: the number of worker processes to run. Defaults to the 
 
   include_recipe "nginx"
   include_recipe "nginx::gzip"
+  include_recipe "nginx::proxy"
 
 = LICENSE
 
