@@ -24,6 +24,3 @@ default.munin.additional_hosts []
 
 default.munin.auth_enabled false
 default.munin.ssl_enabled  false
-
-default.munin.notifications.enabled false
-default.munin.notifications.address "ops@example.com"

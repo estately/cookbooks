@@ -29,10 +29,3 @@ includedir /etc/munin/munin-conf.d
     address <%= host[:fqdn] %>
 
 <% end %>
-
-<% if node.munin.notifications.enabled %>
-contacts ops
-contact.ops.command mail -s "Munin-notification for ${var:group} :: ${var:host}" <%= node.munin.notifications.address %>
-contact.ops.max_messages 1
-contact.ops.always_send warning critical
-<% end %>
