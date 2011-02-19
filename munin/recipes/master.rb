@@ -43,10 +43,12 @@ end
 
 include_recipe "apache2"
 
+munin_domain = [ node.munin.hostname, node.munin.domain ].join('.')
+
 ### install the ssl cert
 if node.munin.ssl_enabled
   include_recipe "apache2::mod_ssl"
-  cookbook_file "#{node.apache.dir}/ssl/#{node.munin.hostname}.pem" do
+  cookbook_file "#{node.apache.dir}/ssl/#{munin_domain}.pem" do
     owner "root"
     group "root"
     mode  0600
@@ -56,7 +58,7 @@ end
 ### install the digest password file
 if node.munin.auth_enabled
   include_recipe "apache2::mod_auth_digest"
-  cookbook_file "#{node.apache.dir}/#{node.munin.hostname}.digest_passwds" do
+  cookbook_file "#{node.apache.dir}/#{munin_domain}.digest_passwds" do
     owner "root"
     group "www-data"
     mode  0640
@@ -64,8 +66,8 @@ if node.munin.auth_enabled
 end
 
 web_app "munin" do
-  server_name    node.munin.hostname
-  server_aliases node.munin.hostname.split('.').first
+  server_name    munin_domain
+  server_aliases node.munin.hostname
 
   docroot node.munin.htmldir
 

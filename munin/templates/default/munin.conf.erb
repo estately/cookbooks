@@ -25,7 +25,7 @@ includedir /etc/munin/munin-conf.d
         host[:fqdn]
     ].join(';')
 %>
-[estately.com;<%= section %>]
+[<%= node.munin.domain %>;<%= section %>]
     address <%= host[:fqdn] %>
 
 <% end %>

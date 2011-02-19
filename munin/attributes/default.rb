@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-default.munin.hostname         "munin.example.com"
+default.munin.hostname "munin"
+default.munin.domain   "example.com"
+
 default.munin.htmldir          "/var/www/munin"
 default.munin.group            "other"
 default.munin.additional_hosts []
