@@ -1,6 +1,6 @@
 = DESCRIPTION:
 
-Install and configure munin-node
+Install and configure munin
 
 = DEFINITIONS:
 
@@ -18,6 +18,26 @@ You can also set up wildcard plugins. The following example installs the
   munin_plugin( "if_eth0" ) { plugin "if_" }
 
 = USAGE:
+
+=== Munin Master
+
+To configure a node to be the munin master:
+
+  include_recipe "munin::master"
+
+By default, munin will be set up to monitor any host that has the
++monitored+ role. If you want to monitor other hosts, you should look
+configure them in the additional_hosts attribute, described below.
+
+You may be interested in the auth_enabled and ssl_enabled attributes;
+if you want to use them, you'll need to create a digest auth
+file and/or SSL cert, named hostname.domain.digest_passwds or
+hostname.domain.pem. You should create a munin cookbook in your private
+cookbooks directory and put those files in munin/files/default.
+
+=== Munin Node
+
+To configure a node to be monitored by munin:
 
   include_recipe "munin::node"
 
@@ -65,9 +85,69 @@ In addition, by default, this recipe will enable the following plugins:
 
 Other plugins may be installed by default on your system.
 
+= ATTRIBUTES
+
+=== Simple Attributes
+
+munin.hostname:: the name of the machine running the munin master. Used
+                 to set up the apache vhost. Defaults to 'munin'.
+
+munin.domain:: your domain. used variously to configure groups in
+               munin's output, set up the apache vhost, and the like.
+               Defaults to 'example.com'
+
+munin.htmldir:: the directory munin should write its HTML to. Defaults
+                to /var/www/munin.
+
+munin.auth_enabled:: whether to use digest auth. See above, defaults
+                     to false.
+
+munin.ssl_enabled:: whether to use SSL. See above, defaults to false.
+
+=== "Special" Attributes
+
+There are two attributes that require some additional explanation.
+First, some background: munin represents hosts in a tree. For instance,
+ours looks something like this (names have been changed):
+
+estately.com
+├── production
+│   ├── admin
+│   │   ├── andrew
+│   │   ├── beatrice
+│   │   └── geoffrey
+│   ├── appserver
+│   │   └── glenn
+│   ├── database
+│   │   └── marcus
+│   ├── other
+│   │   └── katrina
+│   └── worker
+│       └── lisa
+└── staging
+    └── other
+        ├── amy
+        └── oren
+
+The "production" and "staging" are the node's app_environment value,
+"admin", "appserver", etc are the munin.group. You can ignore this if
+you want; everything will end up in the "other" group.
+
+The other attribute of interest is munin.additional_hosts. If you want
+to monitor hosts that aren't managed by chef, or for various reasons
+don't have the monitored role, you can add hashes to this array. Here's
+a snippet from our monitoring role:
+
+default_attributes "munin" => {
+  "additional_hosts" => [
+    { "fqdn" => "beatrice", "group" => "admin", "app_environment" => "production" },
+    { "fqdn" => "glenn",    "group" => "admin", "app_environment" => "production" }
+  ]
+}
+
 = LICENSE
 
-Copyright 2010, Estately, Inc.
+Copyright 2010-2011, Estately, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
