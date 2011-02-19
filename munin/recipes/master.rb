@@ -41,14 +41,33 @@ end
 ### Enable the webserver
 ########################################################################
 
-include_recipe "nginx"
-nginx_site( "default" ) { action :disable }
+include_recipe "apache2"
 
-# do this search outside the nginx_site block, as the block doesn't
-# have the correct scope to perform the search
-networks = search(:networks).map {|n| n[:cidr] }
+### install the ssl cert
+if node.munin.ssl_enabled
+  include_recipe "apache2::mod_ssl"
+  cookbook_file "#{node.apache.dir}/ssl/#{node.munin.hostname}.pem" do
+    owner "root"
+    group "root"
+    mode  0600
+  end
+end
 
-nginx_site "munin" do
+### install the digest password file
+if node.munin.auth_enabled
+  include_recipe "apache2::mod_auth_digest"
+  cookbook_file "#{node.apache.dir}/#{node.munin.hostname}.digest_passwds" do
+    owner "root"
+    group "www-data"
+    mode  0640
+  end
+end
+
+web_app "munin" do
+  server_name    node.munin.hostname
+  server_aliases node.munin.hostname.split('.').first
+
+  docroot node.munin.htmldir
+
   action :enable
-  variables :networks => networks
 end

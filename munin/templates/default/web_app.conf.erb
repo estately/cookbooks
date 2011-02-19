@@ -1,0 +1,34 @@
+<VirtualHost *:443>
+    SSLEngine on
+    SSLCertificateFile <%= node[:apache][:dir] %>/ssl/<%= @params[:server_name] %>.pem
+
+    ServerName <%= @params[:server_name] %>
+    ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
+    DocumentRoot <%= @params[:docroot] %>
+
+    <Directory <%= @params[:docroot] %>>
+        <% if node[:munin][:auth_enabled] %>
+        AuthType Digest
+        AuthName "munin"
+
+        AuthDigestProvider file
+        AuthUserFile <%= node[:apache][:dir] %>/<%= @params[:server_name] %>.digest_passwds
+
+        Require valid-user
+        <% end %>
+
+        Options FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+
+    LogLevel info
+    ErrorLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
+    CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-access.log combined
+</VirtualHost>
