@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /usr/src/wesabot
+
+exec /usr/bin/chpst -u nobody:nogroup \
+    bin/wesabot -c /etc/wesabot.conf  2>&1

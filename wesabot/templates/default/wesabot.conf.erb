@@ -1,0 +1,8 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
+subdomain: <%= node.wesabot.subdomain %>
+api_token: <%= node.wesabot.token %>
+room: <%= node.wesabot.room %>
+datauri: sqlite3://<%= node.wesabot.database_path %>
