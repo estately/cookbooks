@@ -5,6 +5,7 @@ Install and configure memcached
 = ATTRIBUTES:
 
 memcached.instance_size:: specify the size of the memcached instance in megabytes. Defaults to 64.
+memcached.verbosity:: sets the verbosity level. defaults to "". Options are "-v" and "-vv".
 
 = USAGE:
 

@@ -18,3 +18,4 @@
 #
 
 default.memcached.instance_size 64
+default.memcached.verbosity     ""

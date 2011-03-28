@@ -12,11 +12,9 @@
 # Log memcached's output to /var/log/memcached
 logfile /var/log/memcached.log
 
-# Be verbose
-# -v
-
-# Be even more verbose (print client commands as well)
-# -vv
+<% unless node.memcached.verbosity.blank? %>
+<%= node.memcached.verbosity %>
+<% end %>
 
 # The size of the memcached instance, in megabytes.  Note that the
 # daemon will grow to this size, but does not start out holding this
