@@ -17,17 +17,17 @@
 # limitations under the License.
 #
 
-default.munin.hostname "munin"
-default.munin.domain   "example.com"
+default[:munin][ :hostname ] = "munin"
+default[:munin][ :domain   ] = "example.com"
 
-default.munin.htmldir          "/var/www/munin"
-default.munin.group            "other"
-default.munin.additional_hosts []
+default[:munin][ :htmldir          ] = "/var/www/munin"
+default[:munin][ :group            ] = "other"
+default[:munin][ :additional_hosts ] = []
 
-default.munin.auth_enabled false
-default.munin.ssl_enabled  false
+default[:munin][ :auth_enabled ] = false
+default[:munin][ :ssl_enabled  ] = false
 
-default[:munin][:alerts][:enabled] = false
-default[:munin][:alerts][:email_address] = "nowhere@example.com"
-default[:munin][:alerts][:email_subject] = "Munin alert"
-default[:munin][:alerts][:hosts] = {}
+default[:munin][:alerts][ :enabled       ] = false
+default[:munin][:alerts][ :email_address ] = "nowhere@example.com"
+default[:munin][:alerts][ :email_subject ] = "Munin alert"
+default[:munin][:alerts][ :hosts         ] = {}
