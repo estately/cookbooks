@@ -36,10 +36,10 @@ template "/etc/munin/munin.conf" do
 
   hosts = search(:node, 'roles:monitored')
   variables( :hosts => hosts + node.munin.additional_hosts,
-             :alert_enabled => node[:munin][:alert][:enabled],
-             :email_address => node[:munin][:alert][:email_address],
-             :email_subject => node[:munin][:alert][:email_subject],
-             :alerts => node[:munin][:alert][:hosts] )
+             :alerts_enabled => node[:munin][:alerts][:enabled],
+             :email_address => node[:munin][:alerts][:email_address],
+             :email_subject => node[:munin][:alerts][:email_subject],
+             :alerts => node[:munin][:alerts][:hosts] )
 end
 
 ########################################################################

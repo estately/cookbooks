@@ -8,7 +8,7 @@ logdir  /var/log/munin
 rundir  /var/run/munin
 tmpldir /etc/munin/templates
 
-<% if @alert_enabled %>
+<% if @alerts_enabled %>
 contact.alert.command mail -s "<%= @email_subject %>" <%= @email_address %>
 contact.alert.always_send warning critical
 <% end %>

@@ -27,7 +27,7 @@ default.munin.additional_hosts []
 default.munin.auth_enabled false
 default.munin.ssl_enabled  false
 
-default[:munin][:alert][:enabled] = false
-default[:munin][:alert][:email_address] = "nowhere@example.com"
-default[:munin][:alert][:email_subject] = "Munin alert"
-default[:munin][:alert][:hosts] = {}
+default[:munin][:alerts][:enabled] = false
+default[:munin][:alerts][:email_address] = "nowhere@example.com"
+default[:munin][:alerts][:email_subject] = "Munin alert"
+default[:munin][:alerts][:hosts] = {}
