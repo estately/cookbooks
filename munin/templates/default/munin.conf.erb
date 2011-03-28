@@ -8,6 +8,11 @@ logdir  /var/log/munin
 rundir  /var/run/munin
 tmpldir /etc/munin/templates
 
+<% if @alert_enabled %>
+contact.alert.command mail -s "<%= @email_subject %>" <%= @email_address %>
+contact.alert.always_send warning critical
+<% end %>
+
 # load config files
 includedir /etc/munin/munin-conf.d
 
@@ -24,8 +29,13 @@ includedir /etc/munin/munin-conf.d
         group,
         host[:fqdn]
     ].join(';')
+
+   alert_items = ""
+   alerts = @alerts[ host[:fqdn] ] if @alert_enabled
+   alerts.each {|a| alert_items << "#{a}\n    " } if !alerts.nil?
+
 %>
 [<%= node.munin.domain %>;<%= section %>]
     address <%= host[:fqdn] %>
-
+    <%= alert_items %>
 <% end %>

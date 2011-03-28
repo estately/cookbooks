@@ -25,6 +25,7 @@ directory node.munin.htmldir do
   owner "munin"
   group "munin"
   mode  0755
+  recursive true
 end
 
 # render the munin config
@@ -34,7 +35,11 @@ template "/etc/munin/munin.conf" do
   mode  0644
 
   hosts = search(:node, 'roles:monitored')
-  variables :hosts => hosts + node.munin.additional_hosts
+  variables( :hosts => hosts + node.munin.additional_hosts,
+             :alert_enabled => node[:munin][:alert][:enabled],
+             :email_address => node[:munin][:alert][:email_address],
+             :email_subject => node[:munin][:alert][:email_subject],
+             :alerts => node[:munin][:alert][:hosts] )
 end
 
 ########################################################################
