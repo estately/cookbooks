@@ -35,11 +35,12 @@ template "/etc/munin/munin.conf" do
   mode  0644
 
   hosts = search(:node, 'roles:monitored')
-  variables( :hosts => hosts + node.munin.additional_hosts,
-             :alerts_enabled => node[:munin][:alerts][:enabled],
-             :email_address => node[:munin][:alerts][:email_address],
-             :email_subject => node[:munin][:alerts][:email_subject],
-             :alerts => node[:munin][:alerts][:hosts] )
+
+  variables :hosts          => hosts + node.munin.additional_hosts,
+            :alerts_enabled => node[:munin][:alerts][:enabled],
+            :email_address  => node[:munin][:alerts][:email_address],
+            :email_subject  => node[:munin][:alerts][:email_subject],
+            :alerts         => node[:munin][:alerts][:hosts]
 end
 
 ########################################################################
