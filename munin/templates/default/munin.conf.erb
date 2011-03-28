@@ -30,12 +30,15 @@ includedir /etc/munin/munin-conf.d
         host[:fqdn]
     ].join(';')
 
-   alert_items = ""
-   alerts = @alerts[ host[:fqdn] ] if @alert_enabled
-   alerts.each {|a| alert_items << "#{a}\n    " } if !alerts.nil?
-
+    if @alerts_enabled
+      alerts = @alerts[ host[:fqdn] ] || []
+    else
+      alerts = []
+    end
 %>
 [<%= node.munin.domain %>;<%= section %>]
     address <%= host[:fqdn] %>
-    <%= alert_items %>
+    <% alerts.each do |alert| %>
+    <%= alert %>
+    <% end %>
 <% end %>
