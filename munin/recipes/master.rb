@@ -40,7 +40,8 @@ template "/etc/munin/munin.conf" do
             :alerts_enabled => node[:munin][:alerts][:enabled],
             :email_address  => node[:munin][:alerts][:email_address],
             :email_subject  => node[:munin][:alerts][:email_subject],
-            :alerts         => node[:munin][:alerts][:hosts]
+            :by_host        => node[:munin][:alerts][:by_host],
+            :thresholds     => node[:munin][:alerts][:thresholds]
 end
 
 ########################################################################

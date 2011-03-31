@@ -30,4 +30,5 @@ default[:munin][ :ssl_enabled  ] = false
 default[:munin][:alerts][ :enabled       ] = false
 default[:munin][:alerts][ :email_address ] = "nowhere@example.com"
 default[:munin][:alerts][ :email_subject ] = "Munin alert for ${var:host}"
-default[:munin][:alerts][ :hosts         ] = {}
+default[:munin][:alerts][ :thresholds    ] = []
+default[:munin][:alerts][ :by_host       ] = {}

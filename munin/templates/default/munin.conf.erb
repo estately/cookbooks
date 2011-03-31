@@ -31,7 +31,8 @@ includedir /etc/munin/munin-conf.d
     ].join(';')
 
     if @alerts_enabled
-      alerts = @alerts[ host[:fqdn] ] || []
+      alerts = @by_host[ host[:fqdn] ] || []
+      alerts += @thresholds
     else
       alerts = []
     end

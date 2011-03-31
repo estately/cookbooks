@@ -104,6 +104,22 @@ munin.auth_enabled:: whether to use digest auth. See above, defaults
 
 munin.ssl_enabled:: whether to use SSL. See above, defaults to false.
 
+munin.alerts.enabled:: whether to send alerts. Defaults to false.
+
+munin.alerts.email_address:: where to send email alerts. Defaults to
+                             nowhere@example.com.
+
+munin.alerts.email_subject:: subject line for emails. Defaults to "Munin
+                             alert for ${var:host}".
+
+munin.alerts.thresholds:: an array of strings representing alerting
+                          thresholds, like "apt_all.pending_stable.warning 5".
+                          Defaults empty.
+
+munin.alerts.by_host:: a hash of FQDNs => alert threshold strings as
+                       defined above. These will only be applied on the
+                       the matching host. Defaults empty.
+
 === "Special" Attributes
 
 There are two attributes that require some additional explanation.
