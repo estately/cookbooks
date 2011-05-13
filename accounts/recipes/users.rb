@@ -59,7 +59,11 @@ search( "users" ).sort_by {|u| u[:uid] }.each do |user|
 
     supports :manage_home => true
 
-    action [ :create, :manage ]
+    if user[ :disabled ]
+      action :lock
+    else
+      action [ :create, :manage, :unlock ]
+    end
   end
 
   directory homedir + "/.ssh" do
