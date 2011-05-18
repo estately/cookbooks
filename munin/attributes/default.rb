@@ -32,3 +32,6 @@ default[:munin][:alerts][ :email_address ] = "nowhere@example.com"
 default[:munin][:alerts][ :email_subject ] = "Munin alert for ${var:host}"
 default[:munin][:alerts][ :thresholds    ] = []
 default[:munin][:alerts][ :by_host       ] = {}
+
+default[:munin][:nagios][ :enabled   ] = false
+default[:munin][:nagios][ :nsca_host ] = "localhost"

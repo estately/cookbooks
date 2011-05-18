@@ -13,6 +13,11 @@ contact.alert.command mail -s "<%= @email_subject %>" <%= @email_address %>
 contact.alert.always_send warning critical
 <% end %>
 
+<% if @nagios_enabled %>
+contacts nagios
+contact.nagios.command /usr/sbin/send_nsca -H <%= @nsca_host %> -c /etc/send_nsca.cfg
+<% end %>
+
 # load config files
 includedir /etc/munin/munin-conf.d
 
