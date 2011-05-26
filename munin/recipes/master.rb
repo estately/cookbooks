@@ -44,6 +44,7 @@ template "/etc/munin/munin.conf" do
             :thresholds     => node[:munin][:alerts][:thresholds],
             :nagios_enabled => node[:munin][:nagios][:enabled],
             :nsca_host      => node[:munin][:nagios][:nsca_host]
+  notifies :restart, "service[munin-node]"
 end
 
 ########################################################################
