@@ -17,6 +17,18 @@
 # limitations under the License.
 #
 
+### Install the OneHub PPA to get Redis 2.2.x
+apt_repository "onehub-ppa" do
+  uri "http://ppa.launchpad.net/onehub/ppa/ubuntu/"
+  key "8C7BBE46CCC23219"
+  keyserver "keyserver.ubuntu.com"
+
+  distribution "lucid"
+  components   %w( main )
+
+  action :add
+end
+
 package "redis-server"
 
 service "redis-server" do

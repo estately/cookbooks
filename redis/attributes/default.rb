@@ -28,4 +28,4 @@ intervals = [
 ]
 
 default.redis.snapshot_intervals intervals
-default.redis.appendfsync 'always'
+default.redis.appendfsync 'everysec'

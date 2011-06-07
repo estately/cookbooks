@@ -1,12 +1,21 @@
+########################################################################
+### NOTICE: this file managed by chef; changes made here will be lost.
+########################################################################
+
 daemonize yes
 pidfile /var/run/redis.pid
 
 # bind 127.0.0.1
 # port 6379
+# unixsocket /tmp/redis.sock
 timeout <%= node.redis.timeout %>
 
 loglevel <%= node.redis.loglevel %>
 logfile /var/log/redis/redis-server.log
+
+# syslog-enabled no
+# syslog-ident redis
+# syslog-facility local0
 
 databases <%= node.redis.databases %>
 
@@ -22,6 +31,7 @@ dir /var/lib/redis
 ### Replication
 # slaveof <masterip> <masterport>
 # masterauth <master-password>
+# slave-serve-stale-data yes
 
 ### Security
 # requirepass foobared
@@ -29,12 +39,27 @@ dir /var/lib/redis
 ### Limits
 # maxclients 128
 # maxmemory <bytes>
+# maxmemory-policy volatile-lru
+# maxmemory-samples 3
 
 ### Append Only Mode
 appendonly no
+# appendfilename appendonly.aof
 appendfsync <%= node.redis.appendfsync %>
+no-appendfsync-on-rewrite no
+
+### Virtual Memory
+vm-enabled no
+vm-swap-file /var/lib/redis/redis.swap
+vm-max-memory 0
+vm-page-size 32
+vm-pages 134217728
+vm-max-threads 4
 
 ### Advanced Config
-glueoutputbuf yes
-shareobjects no
-shareobjectspoolsize 1024
+hash-max-zipmap-entries 512
+hash-max-zipmap-value 64
+list-max-ziplist-entries 512
+list-max-ziplist-value 64
+set-max-intset-entries 512
+activerehashing yes
