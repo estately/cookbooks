@@ -12,7 +12,7 @@
 # Log memcached's output to /var/log/memcached
 logfile /var/log/memcached.log
 
-<% unless node.memcached.verbosity.blank? %>
+<% unless node.memcached.verbosity.nil? or node.memcached.verbosity.empty? %>
 <%= node.memcached.verbosity %>
 <% end %>
 
