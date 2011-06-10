@@ -45,6 +45,11 @@ pop out.
 
 All fields are required.
 
+== disabled_users
+
+Users in this databag will have their accounts locked if they
+exist. Format is the same as regular users.
+
 = USAGE:
 
   include_recipe "accounts"

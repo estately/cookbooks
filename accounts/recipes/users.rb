@@ -36,19 +36,16 @@ directory "/home/bootstrap" do
   not_if "who | grep bootstrap"
 end
 
+# lock disabled users
+search( "disabled_users" ).each do |user|
+  user user[:id] do
+    action :lock
+    only_if { node.etc.passwd.has_key?(user[:id]) }
+  end
+end
+
 # create users from the users databag
 search( "users" ).sort_by {|u| u[:uid] }.each do |user|
-
-  # if the user is disabled, check whether it exists and lock it if so.
-  # then bail.
-  if user[:disabled]
-    if node.etc.passwd.has_key? user[:id]
-      user( user[:id] ) { action :lock }
-    end
-
-    next
-  end
-
   homedir = user[ :homedir ] || "/home/#{user[:id]}"
 
   # ensure that the directory containing the homedir exists
