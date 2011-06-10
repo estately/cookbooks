@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: postgresql
-# Recipe:: client
+# Recipe:: ppa
 #
 # Copyright 2010, Estately, Inc.
 #
@@ -17,5 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe "postgresql::ppa"
-package "postgresql-client"
+apt_repository "pitti-ppa" do
+  uri "http://ppa.launchpad.net/pitti/postgresql/ubuntu"
+  key "8683D8A2"
+  keyserver "keyserver.ubuntu.com"
+
+  distribution "lucid"
+  components   %w( main )
+
+  action :add
+end
