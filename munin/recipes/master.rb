@@ -68,10 +68,13 @@ end
 ### install the digest password file
 if node.munin.auth_enabled
   include_recipe "apache2::mod_auth_digest"
-  cookbook_file "#{node.apache.dir}/#{munin_domain}.digest_passwds" do
+  template "#{node.apache.dir}/#{munin_domain}.digest_passwds" do
+    source "htpasswd.erb"
     owner "root"
     group "www-data"
     mode  0640
+
+    variables :users => search( "users" )
   end
 end
 
