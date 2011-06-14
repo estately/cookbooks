@@ -2,14 +2,15 @@
 
 echo "\nChef (version <%= node.chef_packages.chef.version %>)"
 echo "------------------------------------------------------------------------"
-echo "Node name: <%= node.name %>"
-echo "Last run:  <%= Time.now.strftime "%Y-%m-%d %H:%M:%S"  %>"
+echo "Node name:   <%= node.name %>"
+echo "Last run:    <%= Time.now.strftime "%Y-%m-%d %H:%M:%S"  %>"
+echo "Environment: <%= node.chef_environment %>"
 
 <% unless @roles.empty? %>
-echo "Roles:     <%= @roles.join ", " %>"
+echo "Roles:       <%= @roles.join ", " %>"
 <% end %>
 
 <% unless @recipes.empty? %>
-echo "Recipes:   <%= @recipes.join ", " %>"
+echo "Recipes:     <%= @recipes.join ", " %>"
 <% end %>
 
