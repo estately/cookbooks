@@ -65,10 +65,9 @@ if node.munin.ssl_enabled
   end
 end
 
-### install the digest password file
+### install the password file
 if node.munin.auth_enabled
-  include_recipe "apache2::mod_auth_digest"
-  template "#{node.apache.dir}/#{munin_domain}.digest_passwds" do
+  template "#{node.apache.dir}/#{munin_domain}.htpasswd" do
     source "htpasswd.erb"
     owner "root"
     group "www-data"

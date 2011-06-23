@@ -8,11 +8,11 @@
 
     <Directory <%= @params[:docroot] %>>
         <% if node[:munin][:auth_enabled] %>
-        AuthType Digest
-        AuthName "munin"
+        AuthType Basic
+        AuthName "<%= @params[:server_name] %>"
 
-        AuthDigestProvider file
-        AuthUserFile <%= node[:apache][:dir] %>/<%= @params[:server_name] %>.digest_passwds
+        AuthBasicProvider file
+        AuthUserFile <%= node[:apache][:dir] %>/<%= @params[:server_name] %>.htpasswd
 
         Require valid-user
         <% end %>
