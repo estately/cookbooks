@@ -72,19 +72,3 @@ execute "install postgis" do
   cwd path
   creates "/usr/lib/postgresql/9.0/lib/postgis-1.5.so"
 end
-
-# should you want to build and install a debian package
-bash "build and install postgis-#{version}_amd64.deb" do
-  cwd path
-  code <<-EOH
-  mkdir -p /tmp/installdir
-  make install DESTDIR=/tmp/installdir
-  gem install fpm --no-ri --no-rdoc
-  cd /tmp/installdir
-  fpm -s dir -t deb --name postgis --version #{version} \
-    -C /tmp/installdir --package postgis-VERSION_ARCH.deb \
-    usr/lib usr/share
-  dpkg -i /tmp/installdir/postgis-#{version}_amd64.deb
-  EOH
-  creates "/usr/lib/postgresql/9.0/lib/postgis-1.5.so"
-end
