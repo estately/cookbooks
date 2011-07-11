@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+default.postgresql.data_directory                 "ConfigDir"
 default.postgresql.max_connections                100
 default.postgresql.shared_buffers                 "24MB"
 default.postgresql.work_mem                       "1MB"
