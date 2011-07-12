@@ -19,6 +19,7 @@
 
 default.postgresql.data_directory                 "ConfigDir"
 default.postgresql.max_connections                100
+default.postgresql.ssl                            false
 default.postgresql.shared_buffers                 "24MB"
 default.postgresql.work_mem                       "1MB"
 default.postgresql.maintenance_work_mem           "16MB"
