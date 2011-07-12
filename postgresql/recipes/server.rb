@@ -83,21 +83,6 @@ template CONFIG_DIR + "pg_hba.conf" do
 end
 
 ###
-# pg_ident.conf
-#
-template CONFIG_DIR + "pg_ident.conf" do
-  owner "postgres"
-  group "postgres"
-  mode  0640
-
-  notifies :reload, resources(:service => "postgresql")
-
-  variables(
-    :users => search(:users).map {|u| u[:id] }
-  )
-end
-
-###
 # postgresql.conf
 #
 template CONFIG_DIR + "postgresql.conf" do
