@@ -19,6 +19,14 @@
 
 node.mounts.each do |mount_info|
 
+  directory mount_info['mount_point'] do
+    owner "root"
+    group "root"
+    mode  0755
+
+    recursive true
+  end
+
   mount mount_info['mount_point'] do
     device      mount_info[ 'device'      ]
     device_type mount_info[ 'device_type' ] || :uuid
