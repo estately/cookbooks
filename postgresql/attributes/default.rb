@@ -17,21 +17,22 @@
 # limitations under the License.
 #
 
-default.postgresql.max_connections              100
-default.postgresql.shared_buffers               "24MB"
-default.postgresql.max_prepared_transactions    0
-default.postgresql.work_mem                     "1MB"
-default.postgresql.maintenance_work_mem         "16MB"
-default.postgresql.max_stack_depth              "2MB"
-default.postgresql.wal_buffers                  "64kB"
-default.postgresql.checkpoint_segments          3
-default.postgresql.checkpoint_completion_target 0.5
-default.postgresql.effective_cache_size         "128MB"
-default.postgresql.default_statistics_target    100
-default.postgresql.autovacuum_max_workers       3
-default.postgresql.max_locks_per_transaction    64
+default.postgresql.data_directory                 "ConfigDir"
+default.postgresql.max_connections                100
+default.postgresql.ssl                            false
+default.postgresql.shared_buffers                 "24MB"
+default.postgresql.work_mem                       "1MB"
+default.postgresql.maintenance_work_mem           "16MB"
+default.postgresql.wal_buffers                    "64kB"
+default.postgresql.checkpoint_segments            3
+default.postgresql.checkpoint_completion_target   0.5
+default.postgresql.effective_cache_size           "128MB"
+default.postgresql.log_min_duration_statement     "-1"
+default.postgresql.log_duration                   "off"
+default.postgresql.log_line_prefix                "%t "
+default.postgresql.log_statement                  "none"
+default.postgresql.autovacuum_vacuum_threshold    50
 default.postgresql.autovacuum_vacuum_scale_factor 0.2
-default.postgresql.autovacuum_vacuum_threshold  50
 
 # these two settings are determing at postgresql compile-time, so they
 # should only be set if your postgresql already has different values.

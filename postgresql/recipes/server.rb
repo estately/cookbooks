@@ -20,6 +20,7 @@
 ###
 # Let's install some packages, shall we?
 #
+include_recipe "postgresql::ppa"
 include_recipe "postgresql::client"
 package "postgresql"
 package "ptop"
@@ -28,7 +29,6 @@ package "ptop"
 # Configure the postgresql service
 #
 service "postgresql" do
-  service_name "postgresql-8.4"
   supports :restart => true, :status => true, :reload => true
   action :nothing
 end
@@ -36,7 +36,7 @@ end
 ###
 # and set up the config directory
 #
-CONFIG_DIR = "/etc/postgresql/8.4/main/"
+CONFIG_DIR = "/etc/postgresql/9.0/main/"
 directory CONFIG_DIR do
   owner "postgres"
   group "postgres"
@@ -83,21 +83,6 @@ template CONFIG_DIR + "pg_hba.conf" do
 end
 
 ###
-# pg_ident.conf
-#
-template CONFIG_DIR + "pg_ident.conf" do
-  owner "postgres"
-  group "postgres"
-  mode  0640
-
-  notifies :reload, resources(:service => "postgresql")
-
-  variables(
-    :users => search(:users).map {|u| u[:id] }
-  )
-end
-
-###
 # postgresql.conf
 #
 template CONFIG_DIR + "postgresql.conf" do
@@ -133,6 +118,6 @@ file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
 
 ### create a new one!
 rotate_log "postgresql" do
-  files "/var/log/postgresql/postgresql-8.4-main.log"
+  files "/var/log/postgresql/postgresql-9.0-main.log"
   copytruncate true
 end

@@ -11,23 +11,22 @@ server using the pgtune tool, which you can get from:
 
 You should install postgresql using this recipe, run pgtune, and update
 any necessary attributes. The default values came directly from the
-Ubuntu 10.04 PostgreSQL 8.4 server default config.
+default configuration that ships with the PostgreSQL 9.0 package.
 
- * postgresql.autovacuum_max_workers
- * postgresql.block_size
- * postgresql.checkpoint_completion_target
- * postgresql.checkpoint_segments
- * postgresql.default_statistics_target
- * postgresql.effective_cache_size
- * postgresql.maintenance_work_mem
  * postgresql.max_connections
- * postgresql.max_locks_per_transaction
- * postgresql.max_prepared_transactions
- * postgresql.max_stack_depth
  * postgresql.shared_buffers
- * postgresql.wal_block_size
- * postgresql.wal_buffers
  * postgresql.work_mem
+ * postgresql.maintenance_work_mem
+ * postgresql.wal_buffers
+ * postgresql.checkpoint_segments
+ * postgresql.checkpoint_completion_target
+ * postgresql.effective_cache_size
+ * postgresql.log_min_duration_statement
+ * postgresql.log_duration
+ * postgresql.log_line_prefix
+ * postgresql.log_statement
+ * postgresql.autovacuum_vacuum_threshold
+ * postgresql.autovacuum_vacuum_scale_factor
 
 We also set the sysctl shmmax setting. You can set it yourself in
 sysctl.shmmax, or let the cookbook calculate it for you.
@@ -70,7 +69,7 @@ this databag.
 
 = LICENSE
 
-Copyright 2010, Estately, Inc.
+Copyright 2010-11, Estately, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
