@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package "qemu"
+package "bridge-utils"
 package "qemu-kvm"
 package "libvirt-bin"
 package "ubuntu-vm-builder"
