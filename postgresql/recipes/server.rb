@@ -120,4 +120,5 @@ file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
 rotate_log "postgresql" do
   files "/var/log/postgresql/postgresql-9.0-main.log"
   copytruncate true
+  delaycompress false
 end
