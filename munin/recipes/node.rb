@@ -79,8 +79,10 @@ existing_munin_recipes = node.
   cookbook_collection['munin'].
   fully_qualified_recipe_names
 
-node.run_list.expand( node.chef_environment ).recipes.each do |recipe|
-  recipe_name = "munin::#{recipe.gsub /::/, '_'}"
+recipes = node.run_list.expand( node.chef_environment ).recipes
+roles = node.run_list.expand( node.chef_environment ).roles
 
+(recipes + roles).flatten.each do |recipe|
+  recipe_name = "munin::#{recipe.gsub /::/, '_'}"
   include_recipe recipe_name if existing_munin_recipes.include?( recipe_name )
 end
