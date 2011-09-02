@@ -18,4 +18,4 @@
 #
 
 include_recipe "postgresql::ppa"
-package("postgresql-client") { action :upgrade }
+package("postgresql-client-9.0") { action :upgrade }

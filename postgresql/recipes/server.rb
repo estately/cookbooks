@@ -22,7 +22,7 @@
 #
 include_recipe "postgresql::ppa"
 include_recipe "postgresql::client"
-package "postgresql"
+package "postgresql-9.0"
 package "ptop"
 
 ###
