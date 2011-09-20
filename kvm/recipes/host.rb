@@ -22,6 +22,7 @@ package "qemu-kvm"
 package "libvirt-bin"
 package "ubuntu-vm-builder"
 package "virt-viewer"
+package "python-virtinst"
 
 ### make all sysadmins able to administer VMs
 group 'libvirtd' do
