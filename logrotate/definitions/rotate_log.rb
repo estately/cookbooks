@@ -22,7 +22,7 @@ DEFAULTS = {
   :delaycompress => true,
   :frequency     => :daily,
   :datestamp     => true,
-  :keep          => 3650
+  :keep          => 14 
 }
 
 define :rotate_log, DEFAULTS do
