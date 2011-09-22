@@ -327,7 +327,7 @@ effective_cache_size = <%= node.postgresql.effective_cache_size %>
 					#   fatal
 					#   panic
 
-#log_min_error_statement = error	# values in order of decreasing detail:
+log_min_error_statement = <%= node.postgresql.log_min_error_statement %> # values in order of decreasing detail:
 				 	#   debug5
 					#   debug4
 					#   debug3
