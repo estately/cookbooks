@@ -23,7 +23,7 @@ This is equivalent to:
     datestamp     true
 
     frequency :daily
-    keep 3650 # ten years!
+    keep 14   # keep for two weeks 
 
     copytruncate false
   end
