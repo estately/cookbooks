@@ -19,3 +19,5 @@
 
 # set the number of worker_processes to the same as the number of CPUs
 default.nginx.worker_processes node.cpu.total
+
+default[:nginx][:server_names_hash_bucket_size] = 64

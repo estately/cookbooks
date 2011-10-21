@@ -28,6 +28,7 @@ template "/etc/nginx/nginx.conf" do
   owner "root"
   group "root"
   mode  0644
+  variables( :server_names_hash_bucket_size => node[:nginx][:server_names_hash_bucket_size] )
 
   notifies :restart, resources( :service => "nginx" )
 end
