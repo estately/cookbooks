@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-default['haproxy']['member_port'] = "8080"
+default['haproxy']['member_port'] = "80"
 default['haproxy']['enable_admin'] = true
-default['haproxy']['app_server_role'] = "webserver"
+default['haproxy']['app_server_role'] = "appserver"
