@@ -35,8 +35,6 @@ bash "install librets" do
   user "root"
   cwd "/tmp"
 
-  not_if not_if_proc
-
   code <<-EOF
     tar zxf librets-1.5.1.tar.gz
     cd librets-1.5.1
@@ -58,5 +56,5 @@ bash "install librets" do
     make
     make install
   EOF
-
+  not_if "test -f /usr/local/lib/site_ruby/1.8/x86_64-linux/librets_native.so"
 end
