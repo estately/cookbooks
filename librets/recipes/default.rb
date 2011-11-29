@@ -25,7 +25,7 @@ package "libboost-filesystem-dev"
 package "swig"
 
 # share this proc across all the resources
-not_if_proc = Proc.new { File.exists? "/usr/local/lib/ruby/site_ruby/1.8/x86_64-linux/librets_native.so" }
+not_if_proc = Proc.new { File.exists? "/usr/local/lib/site_ruby/1.8/x86_64-linux/librets_native.so" }
 
 # copy up librets source and rubytracking patch
 cookbook_file("/tmp/librets-1.5.1.tar.gz") { not_if not_if_proc }
