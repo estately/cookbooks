@@ -24,39 +24,34 @@ package "libboost-dev"
 package "libboost-filesystem-dev"
 package "swig"
 
-# share this proc across all the resources
-not_if_proc = Proc.new { File.exists? "/usr/local/lib/ruby/site_ruby/1.8/x86_64-linux/librets_native.so" }
+cookbook_file "/tmp/librets-1.5.1.tar.gz" do
+	source "librets-1.5.1.tar.gz"
+	mode "644"
+	not_if "test -f /tmp/librets-1.5.1.tar.gz"
+end
 
-# copy up librets source and rubytracking patch
-cookbook_file("/tmp/librets-1.5.1.tar.gz") { not_if not_if_proc }
-cookbook_file("/tmp/rubytracking.swg")     { not_if not_if_proc }
+cookbook_file "/tmp/rubytracking.swg" do
+	source "rubytracking.swg"
+	mode "644"
+	not_if "test -f /tmp/rubytracking.swg"
+end
 
-bash "install librets" do
-  user "root"
-  cwd "/tmp"
+execute "Prepare Software" do
+	command "cd /tmp; tar -xzvf librets-1.5.1.tar.gz; cd /tmp/librets-1.5.1; mkdir -p project/swig/lib/ruby;"
+	not_if "test -d /tmp/librets-1.5.1"
+end
 
-  not_if not_if_proc
+execute "Copy rubytracking File" do
+	command "cd /tmp/librets-1.5.1; mv /tmp/rubytracking.swg project/swig/lib/ruby/rubytracking.swg;"
+	not_if "test -f /tmp/librets-1.5.1/project/swig/lib/ruby/rubytracking.swg"
+end
 
-  code <<-EOF
-    tar zxf librets-1.5.1.tar.gz
-    cd librets-1.5.1
+execute "Make Software" do
+	command "cd /tmp/librets-1.5.1; ./configure --disable-debug --disable-dotnet --disable-java --disable-perl --disable-php --disable-python --disable-sql-compiler --enable-shared-dependencies; make;"
+	not_if "test -f /usr/local/lib/site_ruby/1.8/x86_64-linux/librets_native.so"
+end
 
-    mkdir -p project/swig/lib/ruby
-    mv /tmp/rubytracking.swg project/swig/lib/ruby/rubytracking.swg
-
-    ./configure --disable-debug    \
-      --disable-dotnet             \
-      --disable-java               \
-      --disable-perl               \
-      --disable-php                \
-      --disable-python             \
-      --disable-sql-compiler       \
-      --enable-shared-dependencies
-
-    make
-    rm build/swig/ruby/librets_wrap.*
-    make
-    make install
-  EOF
-
+execute "Make more Software" do
+	command "cd /tmp/librets-1.5.1; rm build/swig/ruby/librets_wrap.*; make; sudo make install;"
+	not_if "test -f /usr/local/lib/site_ruby/1.8/x86_64-linux/librets_native.so"
 end
