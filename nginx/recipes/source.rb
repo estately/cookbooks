@@ -27,9 +27,9 @@ unless platform?("centos","redhat","fedora")
 end
 
 packages = value_for_platform(
-    ["centos","redhat","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
-    "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
-  )
+                              ["centos","redhat","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
+                              "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
+                              )
 
 packages.each do |devpkg|
   package devpkg
@@ -41,11 +41,11 @@ node.set[:nginx][:install_path]    = "/opt/nginx-#{nginx_version}"
 node.set[:nginx][:src_binary]      = "#{node[:nginx][:install_path]}/sbin/nginx"
 node.set[:nginx][:daemon_disable]  = true
 node.set[:nginx][:configure_flags] = [
-  "--prefix=#{node[:nginx][:install_path]}",
-  "--conf-path=#{node[:nginx][:dir]}/nginx.conf",
-  "--with-http_ssl_module",
-  "--with-http_gzip_static_module"
-]
+                                      "--prefix=#{node[:nginx][:install_path]}",
+                                      "--conf-path=#{node[:nginx][:dir]}/nginx.conf",
+                                      "--with-http_ssl_module",
+                                      "--with-http_gzip_static_module"
+                                     ]
 
 if node[:nginx][:tcp_proxy_module]
   #include_recipe "git"
@@ -66,13 +66,22 @@ remote_file "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz" do
   action :create_if_missing
 end
 
+
 bash "compile_nginx_source" do
   cwd Chef::Config[:file_cache_path]
-  code <<-EOH
+  if node[:nginx][:tcp_proxy_module]
+    code <<-EOH
+    tar zxf nginx-#{nginx_version}.tar.gz
+    cd nginx-#{nginx_version} && patch -p1 < /usr/src/nginx_tcp_proxy_module/tcp.patch && ./configure #{configure_flags}
+    make && make install
+  EOH
+  else
+    code <<-EOH
     tar zxf nginx-#{nginx_version}.tar.gz
     cd nginx-#{nginx_version} && ./configure #{configure_flags}
     make && make install
   EOH
+  end
   creates node[:nginx][:src_binary]
 end
 
