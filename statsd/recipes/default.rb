@@ -20,10 +20,20 @@
 include_recipe "build-essential"
 include_recipe "git"
 
+if node[:platform]=="ubuntu"
+  package "python-software-properties"
+  execute "Add PPA repository" do
+    command "sudo add-apt-repository ppa:chris-lea/node.js"
+  end
+  execute "Update Package List" do
+    command "sudo apt-get update"
+  end
+end
+
 package "nodejs"
 
 execute "checkout statsd" do
-  command "git clone git://github.com/etsy/statsd"
+  command "git clone git://github.com/tdtran/statsd"
   creates "/tmp/statsd"
   cwd "/tmp"
 end
