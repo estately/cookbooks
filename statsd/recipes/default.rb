@@ -31,6 +31,12 @@ if node[:platform]=="ubuntu"
 end
 
 package "nodejs"
+package "npm"
+
+execute "install modules" do
+  command "sudo npm -g install async temp node-syslog nodeunit underscore"
+  not_if {File.exists?("/usr/lib/node_modules/underscore")}
+end
 
 execute "checkout statsd" do
   command "git clone git://github.com/tdtran/statsd"
@@ -80,5 +86,6 @@ user "statsd" do
 end
 
 service "statsd" do
+  provider Chef::Provider::Service::Upstart
   action [ :enable, :start ]
 end
