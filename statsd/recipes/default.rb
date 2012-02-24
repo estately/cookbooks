@@ -61,7 +61,7 @@ template "/etc/statsd/estately-config.js" do
   source "estately-config.js.erb"
   mode 0644
   variables(
-    :graphService => node[:statsd][:graphservice],
+    :graphService => node[:statsd][:graphService],
     :libratoUser => node[:statsd][:libratoUser],
     :libratoApiKey => node[:statsd][:libratoApiKey],
     :libratoSource => node[:hostname],
