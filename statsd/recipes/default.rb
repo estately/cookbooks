@@ -64,10 +64,7 @@ template "/etc/statsd/estately-config.js" do
     :graphService => node[:statsd][:graphService],
     :libratoUser => node[:statsd][:libratoUser],
     :libratoApiKey => node[:statsd][:libratoApiKey],
-    :libratoSource => node[:hostname],
-    :port => node[:statsd][:port],
-    :graphitePort => node[:statsd][:graphite_port],
-    :graphiteHost => node[:statsd][:graphite_host]
+    :libratoSource => node[:hostname]
   )
 
   notifies :restart, "service[statsd]"
