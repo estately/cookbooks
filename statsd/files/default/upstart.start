@@ -3,4 +3,4 @@
 
 export NODE_PATH=/usr/lib/node_modules
 
-node /usr/share/statsd/stats.js /etc/statsd/rdioConfig.js 2>&1 >> /tmp/statsd.log
+node /usr/share/statsd/stats.js /etc/statsd/estately-config.js 2>&1 >> /tmp/statsd.log

@@ -57,10 +57,14 @@ dpkg_package "statsd" do
   source "/tmp/statsd_0.0.1_all.deb"
 end
 
-template "/etc/statsd/rdioConfig.js" do
-  source "rdioConfig.js.erb"
+template "/etc/statsd/estately-config.js" do
+  source "estately-config.js.erb"
   mode 0644
   variables(
+    :graphService => node[:statsd][:graphservice],
+    :libratoUser => node[:statsd][:libratoUser],
+    :libratoApiKey => node[:statsd][:libratoApiKey],
+    :libratoSource => node[:hostname],
     :port => node[:statsd][:port],
     :graphitePort => node[:statsd][:graphite_port],
     :graphiteHost => node[:statsd][:graphite_host]
