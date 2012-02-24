@@ -34,7 +34,7 @@ package "nodejs"
 package "npm"
 
 execute "install modules" do
-  command "sudo npm -g install async temp node-syslog nodeunit underscore"
+  command "sudo npm -g install async temp node-syslog underscore"
   not_if {File.exists?("/usr/lib/node_modules/underscore")}
 end
 
