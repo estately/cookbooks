@@ -314,6 +314,7 @@ effective_cache_size = <%= node.postgresql.effective_cache_size %>
 					#   error
 
 #log_min_messages = warning		# values in order of decreasing detail:
+log_min_messages = <%= node.postgresql.log_min_messages %> # values in order of decreasing detail:
 					#   debug5
 					#   debug4
 					#   debug3

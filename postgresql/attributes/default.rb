@@ -29,7 +29,6 @@ default.postgresql.checkpoint_completion_target   0.5
 default.postgresql.effective_cache_size           "128MB"
 default.postgresql.log_min_duration_statement     "-1"
 default.postgresql.log_duration                   "off"
-default.postgresql.log_min_error_statement	  "fatal"
 default.postgresql.log_line_prefix                "%t "
 default.postgresql.log_statement                  "none"
 default.postgresql.autovacuum_vacuum_threshold    50
