@@ -20,3 +20,4 @@
 default['haproxy']['member_port'] = "80"
 default['haproxy']['enable_admin'] = true
 default['haproxy']['app_server_role'] = "appserver"
+default['cloud']['provider'] = "estately"
