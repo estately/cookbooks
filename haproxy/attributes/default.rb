@@ -19,5 +19,8 @@
 
 default['haproxy']['member_port'] = "80"
 default['haproxy']['enable_admin'] = true
+default['haproxy']['minconn'] = "3"
+default['haproxy']['maxconn'] = "25"
+default['haproxy']['check_inter'] = "20000"
 default['haproxy']['app_server_role'] = "appserver"
 default['cloud']['provider'] = "estately"
