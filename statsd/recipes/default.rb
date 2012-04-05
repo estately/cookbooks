@@ -55,6 +55,7 @@ end
 dpkg_package "statsd" do
   action :install
   source "/tmp/statsd_0.0.1_all.deb"
+  options "--force-confnew"
 end
 
 template "/etc/statsd/estately-config.js" do
