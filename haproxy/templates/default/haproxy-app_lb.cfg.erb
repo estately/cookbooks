@@ -24,7 +24,7 @@ defaults
 listen application 0.0.0.0:80
   balance roundrobin
   <% @pool_members.each do |member| -%>
-  server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node["haproxy"]["member_port"] %> weight 1 minconn <%= node["haproxy"]["minconn"] %> maxconn <%= node["haproxy"]["maxconn"] %> check inter <%= node["haproxy"]["check_inter"] %>
+  server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= member[:member_port] %> weight <%= member[:weight] %> minconn <%= member[:minconn] %> maxconn <%= member[:maxconn] %> check inter <%= node["haproxy"]["check_inter"] %>
   <% end -%>
 <% if node["haproxy"]["enable_admin"] -%>
 listen admin 0.0.0.0:22002

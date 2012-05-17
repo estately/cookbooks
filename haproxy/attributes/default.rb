@@ -17,10 +17,11 @@
 # limitations under the License.
 #
 
-default['haproxy']['member_port'] = "80"
 default['haproxy']['enable_admin'] = true
-default['haproxy']['minconn'] = "5"
-default['haproxy']['maxconn'] = "50"
 default['haproxy']['check_inter'] = "20000"
 default['haproxy']['app_server_role'] = "appserver"
 default['cloud']['provider'] = "estately"
+# default['haproxy']['member_port'] = "80"
+# default['haproxy']['weight'] = "1"
+# default['haproxy']['minconn'] = "700"
+# default['haproxy']['maxconn'] = "700"

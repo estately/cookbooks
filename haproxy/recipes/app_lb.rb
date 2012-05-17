@@ -37,7 +37,7 @@ pool_members.map! do |member|
       member['ipaddress']
     end
   end
-  {:ipaddress => server_ip, :hostname => member['hostname']}
+  {:ipaddress => server_ip, :hostname => member['hostname'], :member_port => member['haproxy']['member_port'], :weight => member['haproxy']['weight'], :minconn => member['haproxy']['minconn'], :maxconn => member['haproxy']['maxconn']}
 end
 
 package "haproxy" do
