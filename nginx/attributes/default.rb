@@ -25,6 +25,7 @@ default[:nginx][:gzip_types] = [
   "text/xml",
   "application/xml",
   "application/xml+rss",
+  "application/json",
   "text/javascript"
 ]
 
