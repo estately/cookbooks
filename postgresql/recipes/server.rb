@@ -98,8 +98,7 @@ template CONFIG_DIR + "postgresql.conf" do
   notifies :reload, resources(:service => "postgresql")
 
   variables(
-    :data_directory => node.postgresql[:data_directory] ||
-                       "/var/lib/postgresql/#{version}/main"
+    :data_directory => data_directory
   )
 end
 
