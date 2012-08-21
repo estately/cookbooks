@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-default.postgresql.data_directory                 "/var/lib/postgresql/9.0/main"
+default.postgresql.version                        "9.0"
 default.postgresql.max_connections                100
 default.postgresql.ssl                            false
 default.postgresql.shared_buffers                 "24MB"
