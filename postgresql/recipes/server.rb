@@ -17,13 +17,17 @@
 # limitations under the License.
 #
 
+version = node.postgresql.version
+
+
+
 ###
 # Let's install some packages, shall we?
 #
 include_recipe "postgresql::ppa"
 include_recipe "postgresql::client"
 package "postgresql-common"
-package "postgresql-9.0"
+package "postgresql-#{version}"
 package "ptop"
 
 ###
@@ -37,7 +41,7 @@ end
 ###
 # and set up the config directory
 #
-CONFIG_DIR = "/etc/postgresql/9.0/main/"
+CONFIG_DIR = "/etc/postgresql/#{version}/main/"
 directory CONFIG_DIR do
   owner "postgres"
   group "postgres"
@@ -92,6 +96,11 @@ template CONFIG_DIR + "postgresql.conf" do
   mode  0644
 
   notifies :reload, resources(:service => "postgresql")
+
+  variables(
+    :data_directory => node.postgresql.data_directory ||
+                       "/var/lib/postgresql/#{version}/main"
+  )
 end
 
 ###
@@ -119,7 +128,7 @@ file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
 
 ### create a new one!
 rotate_log "postgresql" do
-  files "/var/log/postgresql/postgresql-9.0-main.log"
+  files "/var/log/postgresql/postgresql-#{version}-main.log"
   copytruncate true
   delaycompress false
 end
