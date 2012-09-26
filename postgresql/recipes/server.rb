@@ -127,7 +127,7 @@ file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
 
 ### create a new one!
 rotate_log "postgresql" do
-  files "/var/log/postgresql/postgresql-#{version}-main.log"
+  files ["/var/log/postgresql/postgresql-#{version}-main.log"]
   copytruncate true
   delaycompress false
 end

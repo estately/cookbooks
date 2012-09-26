@@ -23,14 +23,17 @@ package "libxml2-dev"
 include_recipe "postgresql::server"
 
 package "libpq-dev"
-package "postgresql-server-dev-9.0"
-package "postgresql-contrib-9.0"
 
 if node['platform_version'] == '12.04'
 
+  package "postgresql-server-dev-9.1"
+  package "postgresql-contrib-9.1"
   package "postgresql-9.1-postgis"
 
 elsif node['platform_version'] == '10.04'
+  package "postgresql-server-dev-9.0"
+  package "postgresql-contrib-9.0"
+
   apt_repository "ubuntugis-ppa" do
     uri "http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu"
     key "314DF160"
