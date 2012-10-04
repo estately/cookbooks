@@ -154,7 +154,7 @@ maintenance_work_mem = <%= node.postgresql.maintenance_work_mem %>		# min 1MB
 
 # - Settings -
 
-#wal_level = minimal			# minimal, archive, or hot_standby
+wal_level = <%= node.postgresql.wal_level %>			# minimal, archive, or hot_standby
 					# (change requires restart)
 #fsync = on				# turns forced synchronization on or off
 #synchronous_commit = on		# immediate fsync at commit
@@ -182,10 +182,10 @@ checkpoint_completion_target = <%= node.postgresql.checkpoint_completion_target 
 
 # - Archiving -
 
-#archive_mode = off		# allows archiving to be done
+archive_mode = <%= node.postgresql.archive_mode %>		# allows archiving to be done
 				# (change requires restart)
-#archive_command = ''		# command to use to archive a logfile segment
-#archive_timeout = 0		# force a logfile segment switch after this
+archive_command = '<%= node.postgresql.archive_command %>'		# command to use to archive a logfile segment
+archive_timeout = <%= node.postgresql.archive_timeout %>		# force a logfile segment switch after this
 				# number of seconds; 0 disables
 
 # - Streaming Replication -

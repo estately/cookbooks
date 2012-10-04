@@ -33,6 +33,10 @@ default.postgresql.log_line_prefix                "%t "
 default.postgresql.log_statement                  "none"
 default.postgresql.autovacuum_vacuum_threshold    50
 default.postgresql.autovacuum_vacuum_scale_factor 0.2
+default.postgresql.archive_command                ""
+default.postgresql.archive_mode                   "off"
+default.postgresql.archive_timeout                "0"
+default.postgresql.wal_level                      "minimal"
 
 # these two settings are determing at postgresql compile-time, so they
 # should only be set if your postgresql already has different values.
