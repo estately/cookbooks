@@ -22,18 +22,17 @@ package "libxml2-dev"
 
 include_recipe "postgresql::server"
 
+dbversion = node[:postgresql][:version]
+
 package "libpq-dev"
+package "postgresql-server-dev-#{dbversion}"
+package "postgresql-contrib-#{dbversion}"
 
 if node['platform_version'] == '12.04'
 
-  package "postgresql-server-dev-9.1"
-  package "postgresql-contrib-9.1"
   package "postgresql-9.1-postgis"
 
 elsif node['platform_version'] == '10.04'
-  package "postgresql-server-dev-9.0"
-  package "postgresql-contrib-9.0"
-
   apt_repository "ubuntugis-ppa" do
     uri "http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu"
     key "314DF160"
@@ -72,13 +71,13 @@ elsif node['platform_version'] == '10.04'
   execute "build postgis" do
     command "make"
     cwd path
-    creates "#{path}/postgis/postgis-1.5.so"
+    creates "#{path}/postgis/postgis-#{version}.so"
   end
 
   execute "install postgis" do
     command "make install"
     cwd path
-    creates "/usr/lib/postgresql/9.0/lib/postgis-1.5.so"
+    creates "/usr/lib/postgresql/#{dbversion}/lib/postgis-#{version}.so"
   end
 else
   raise "unsupported platform #{node['platform_version']}"

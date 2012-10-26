@@ -120,14 +120,14 @@ end
 ### Log Rotation
 ########################################################################
 
-include_recipe "logrotate"
+#include_recipe "logrotate"
 
 ### remove existing config
-file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
-
+#file( "/etc/logrotate.d/postgresql-common" ) { action :delete }
+#
 ### create a new one!
-rotate_log "postgresql" do
-  files ["/var/log/postgresql/postgresql-#{version}-main.log"]
-  copytruncate true
-  delaycompress false
-end
+#rotate_log "postgresql" do
+#  files "/var/log/postgresql/postgresql-#{version}-main.log"
+#  copytruncate true
+#  delaycompress false
+#end
