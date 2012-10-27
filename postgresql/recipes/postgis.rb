@@ -28,57 +28,56 @@ package "libpq-dev"
 package "postgresql-server-dev-#{dbversion}"
 package "postgresql-contrib-#{dbversion}"
 
-if node['platform_version'] == '12.04'
+apt_repository "ubuntugis-ppa" do
+  uri "http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu"
+  key "314DF160"
+  keyserver "keyserver.ubuntu.com"
 
-  package "postgresql-9.1-postgis"
-
-elsif node['platform_version'] == '10.04'
-  apt_repository "ubuntugis-ppa" do
-    uri "http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu"
-    key "314DF160"
-    keyserver "keyserver.ubuntu.com"
-
+  if node['platform_version'] == '12.04'
+    distribution "precise"
+  elsif node['platform_version'] == '10.04'
     distribution "lucid"
-    components   %w( main )
-
-    action :add
+  else
+    raise "unsupported platform #{node['platform_version']}"
   end
 
-  package "proj"
-  package "libgeos-dev"
-  package "libgdal1-dev"
+  components   %w( main )
 
-  version = node[:postgis][:version]
-  path = "/usr/src/postgis-#{version}"
+  action :add
+end
 
-  remote_file "#{path}.tar.gz" do
-    source "http://postgis.refractions.net/download/postgis-#{version}.tar.gz"
-    checksum node[:postgis][:checksum]
-  end
+package "proj"
+package "libgeos-dev"
+package "libgdal1-dev"
 
-  execute "untar postgis" do
-    command "tar xzf postgis-#{version}.tar.gz"
-    cwd "/usr/src"
-    creates "#{path}/README.postgis"
-  end
+version = node[:postgis][:version]
+path = "/usr/src/postgis-#{version}"
 
-  execute "configure postgis" do
-    command "./configure --prefix=/usr"
-    cwd path
-    creates "#{path}/config.status"
-  end
+remote_file "#{path}.tar.gz" do
+  source "http://postgis.refractions.net/download/postgis-#{version}.tar.gz"
+  checksum node[:postgis][:checksum]
+end
 
-  execute "build postgis" do
-    command "make"
-    cwd path
-    creates "#{path}/postgis/postgis-#{version}.so"
-  end
+execute "untar postgis" do
+  command "tar xzf postgis-#{version}.tar.gz"
+  cwd "/usr/src"
+  creates "#{path}/README.postgis"
+end
 
-  execute "install postgis" do
-    command "make install"
-    cwd path
-    creates "/usr/lib/postgresql/#{dbversion}/lib/postgis-#{version}.so"
-  end
-else
-  raise "unsupported platform #{node['platform_version']}"
+execute "configure postgis" do
+  command "./configure --prefix=/usr"
+  cwd path
+  creates "#{path}/config.status"
+end
+
+execute "build postgis" do
+  command "make"
+  cwd path
+  creates "#{path}/postgis/postgis-#{version}.so"
+end
+
+execute "install postgis" do
+  command "make install"
+  cwd path
+  creates "/usr/lib/postgresql/#{dbversion}/lib/postgis-#{version}.so"
 end
